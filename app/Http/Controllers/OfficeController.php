@@ -10,10 +10,12 @@ use Illuminate\Http\Request;
 class OfficeController extends Controller
 {
     private $office;
+    private $access;
 
-    public function __construct(Office $office)
+    public function __construct(Office $office, Access $access)
     {
         $this->office = $office;
+        $this->access = $access;
     }
 
     /**
@@ -23,11 +25,13 @@ class OfficeController extends Controller
      */
     public function index()
     {
-        //$offices = Office::orderBy('description', 'asc')->get();
-        $offices = $this->office->join('access', 'offices.access_id', '=', 'access.id')
+        $offices = $this->office
+            ->join('access', 'offices.access_id', '=', 'access.id')
             ->select('offices.*', 'access.access')
-            ->paginate(5)->onEachSide(0);
-        //dd($offices);
+            ->where('offices.active', 'Y')
+            ->paginate(5)
+            ->onEachSide(0);
+
         return view('office.index', [
             'offices' => $offices,
         ]);
@@ -40,7 +44,7 @@ class OfficeController extends Controller
      */
     public function create()
     {
-        $access = Access::paginate();
+        $access = $this->access::paginate();
 
         return view('office.create', [
             'access' => $access,
@@ -59,18 +63,9 @@ class OfficeController extends Controller
         $this->office->access_id = $request->access_id;
         $this->office->save();
 
-        return redirect()->route('office.index')->with('success', 'Cargo: "' . $this->office->description . '" Adicionado com sucesso!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Office  $office
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Office $office)
-    {
-        //
+        return redirect()
+            ->route('office.index')
+            ->with('success', 'Cargo: "' . $request->description . '" Adicionado com sucesso!');
     }
 
     /**
@@ -81,11 +76,7 @@ class OfficeController extends Controller
      */
     public function edit(Office $office)
     {
-        if (!$office = $this->office->find($office->id)) {
-            return redirect()->back();
-        }
-
-        $access = Access::paginate();
+        $access = $this->access::paginate();
 
         return view('office.edit', [
             'office' => $office,
@@ -102,15 +93,13 @@ class OfficeController extends Controller
      */
     public function update(OfficeRequest $request, Office $office)
     {
-        if (!$office = $this->office->find($office->id)) {
-            return redirect()->back();
-        }
+        $office->update(
+            $request->except('_token', '_method')
+        );
 
-        $data = $request->except('_token', '_method');
-
-        $office->update($data);
-
-        return redirect()->route('office.index')->with('success', 'Cargo: "' . $office->description . '" editado com sucesso!');
+        return redirect()
+            ->route('office.index')
+            ->with('success', 'Cargo: "' . $office->description . '" editado com sucesso!');
     }
 
     /**
@@ -121,15 +110,13 @@ class OfficeController extends Controller
      */
     public function destroy(Office $office)
     {
-        //dd($office);
+        $office->update([
+            'active' => 'N',
+        ]);
 
-        /* if (!$office = $this->office->find($office->id)) {
-            return redirect()->back();
-        }
-
-        $office->delete(); */
-
-        return redirect()->route('office.index')->with('success', 'Cargo: "' . $office->description . '" deletado com sucesso!');
+        return redirect()
+            ->route('office.index')
+            ->with('success', 'Cargo: "' . $office->description . '" deletado com sucesso!');
     }
 
     public function search(Request $request)

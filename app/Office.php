@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Office extends Model
 {
     protected $table = 'offices';
-    protected $fillable = ['description', 'access'];
+    protected $fillable = ['description', 'access', 'active'];
 
     /**
-     * Filter Products
+     * Filter Offices
      */
     public function search($filter = null)
     {

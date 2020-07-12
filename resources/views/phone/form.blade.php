@@ -14,11 +14,10 @@
         <label for="access_id">Nível de acesso</label>
         <select name="access_id" class="custom-select" id="access_id" placeholder="Selecione o nivel de acesso:" required>
             @foreach ($access as $acces)
-                @if (isset($office->access_id) && $office->access_id === $acces->id)
-                    <option value="{{ $acces->id }}" selected>{{ $acces->access }}</option>                    
-                @else                    
-                    <option value="{{ $acces->id }}">{{ $acces->access }}</option>
+                @if (isset($office->access) && $office->access === $acces->id)
+                <option value="{{ $acces->id }}" selected>{{ $acces->access }}</option>
                 @endif
+                <option value="{{ $acces->id }}">{{ $acces->access }}</option>
             @endforeach
         </select>
         <div class="invalid-feedback">

@@ -24,7 +24,7 @@
             <tr>
             <th scope="col-2">Descrição</th>
             <th scope="col-2">Acesso</th>
-            <th class="text-center not-mobile" scope="col-2" width="350">Opções</th>
+            <th class="text-center not-mobile" scope="col-2" width="250">Opções</th>
             <th class="text-center mobile" scope="col-2">Opções</th>
             </tr>
         </thead>

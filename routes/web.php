@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 Route::resource('office', 'OfficeController');
 Route::any('office/search', 'OfficeController@search')->name('office.search');
 
+Route::resource('typePhone', 'TypePhoneController');
+
 Route::get('/', function () {
     return view('index');
 });
