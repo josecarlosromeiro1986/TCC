@@ -15,7 +15,7 @@
 
 <body>
     <div class="top-menu">
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bk-color top-menu">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-cst top-menu">
             <div class="breadcrumb-dn mr-auto">
                 <span class="button-toggle" onclick="sideBar()">
                     <i id="btn-sideBar" class="fas fa-angle-double-left"></i>
