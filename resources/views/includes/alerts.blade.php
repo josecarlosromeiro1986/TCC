@@ -10,6 +10,7 @@
         </button>
     </div>
 @endif
+
 @if (session('success'))
     <div class="alert alert-success alert-dismissible shadow" role="alert">
         {{ session('success') }}
@@ -18,6 +19,7 @@
         </button>
     </div>
 @endif
+
 @if (session('error'))
     <div class="alert alert-danger alert-dismissible shadow" role="alert">
         {{ session('error') }}

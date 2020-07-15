@@ -62,8 +62,7 @@
                     </a>
                 </div>
             </div>
-    </div>
-    </nav>
+        </nav>
     </div>
 
     <!-- M E N U   -   L A T E R A L -->
