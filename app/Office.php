@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Office extends Model
 {
     protected $table = 'offices';
-    protected $fillable = ['description', 'access', 'active'];
+    protected $fillable = ['description', 'access_id', 'active'];
 
     /**
      * Filter Offices
