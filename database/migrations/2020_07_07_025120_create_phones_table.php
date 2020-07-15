@@ -19,6 +19,7 @@ class CreatePhonesTable extends Migration
             $table->foreignId('collaborator_id')->nullable()->constrained('collaborators');
             $table->string('number');
             $table->string('contact');
+            $table->enum('main', ['Y', 'N'])->default('N');
             $table->enum('active', ['Y', 'N'])->default('Y');
             $table->timestamps();
         });

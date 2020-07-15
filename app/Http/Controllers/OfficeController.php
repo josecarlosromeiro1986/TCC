@@ -44,7 +44,7 @@ class OfficeController extends Controller
      */
     public function create()
     {
-        $access = $this->access::paginate();
+        $access = $this->access->paginate();
 
         return view('office.create', [
             'access' => $access,

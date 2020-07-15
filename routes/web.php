@@ -16,6 +16,7 @@ Route::resource('office', 'OfficeController');
 Route::any('office/search', 'OfficeController@search')->name('office.search');
 
 Route::resource('typePhone', 'TypePhoneController');
+Route::resource('collaborator', 'CollaboratorController');
 
 Route::get('/', function () {
     return view('index');

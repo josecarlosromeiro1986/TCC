@@ -6,7 +6,7 @@
         <h1 class="display-4 text-center">Editar Tipo de Telefone</h1>
         <form class="needs-validation" action="{{ route('typePhone.update', $typePhone->id) }}" method="post" novalidate>
             @method('PUT')
-            @include('typePhone.form')
+            @include('phone.typePhone.form')
         </form>
     </div>
 @endsection

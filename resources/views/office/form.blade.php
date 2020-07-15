@@ -28,6 +28,6 @@
 </div>
 <div class="form-row">
     <div class="form-group col-md-12">
-        <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+        <button type="submit" class="btn btn-cst btn-block">Salvar</button>
     </div>
 </div>

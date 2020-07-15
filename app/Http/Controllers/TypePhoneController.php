@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TypePhoneRequest;
 use App\TypePhone;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,8 @@ class TypePhoneController extends Controller
      */
     public function index()
     {
-        //dd('aqui');
         $typePhones = $this->typePhone
+            ->where('active', 'Y')
             ->paginate(5)
             ->onEachSide(0);
 
@@ -38,7 +39,7 @@ class TypePhoneController extends Controller
      */
     public function create()
     {
-        //
+        return view('phone.typePhone.create');
     }
 
     /**
@@ -47,9 +48,14 @@ class TypePhoneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TypePhoneRequest $request)
     {
-        //
+        $this->typePhone->description = $request->description;
+        $this->typePhone->save();
+
+        return redirect()
+            ->route('typePhone.index')
+            ->with('success', 'Tipo Telefone: "' . $request->description . '" Adicionado com sucesso!');
     }
 
     /**
@@ -71,7 +77,9 @@ class TypePhoneController extends Controller
      */
     public function edit(TypePhone $typePhone)
     {
-        //
+        return view('phone.typePhone.edit', [
+            'typePhone' => $typePhone,
+        ]);
     }
 
     /**
@@ -83,7 +91,13 @@ class TypePhoneController extends Controller
      */
     public function update(Request $request, TypePhone $typePhone)
     {
-        //
+        $typePhone->update(
+            $request->except('_token', '_method')
+        );
+
+        return redirect()
+            ->route('typePhone.index')
+            ->with('success', 'Cargo: "' . $typePhone->description . '" editado com sucesso!');
     }
 
     /**
@@ -94,6 +108,12 @@ class TypePhoneController extends Controller
      */
     public function destroy(TypePhone $typePhone)
     {
-        //
+        $typePhone->update([
+            'active' => 'N',
+        ]);
+
+        return redirect()
+            ->route('typePhone.index')
+            ->with('success', 'Cargo: "' . $typePhone->description . '" deletado com sucesso!');
     }
 }

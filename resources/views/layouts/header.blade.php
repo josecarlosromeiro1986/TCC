@@ -56,7 +56,7 @@
                 <a class="nav-link link-lateral-menu @yield('activeTypePhone')" href="{{ route('typePhone.index') }}" id="1"><i class="fas fa-phone-alt"></i>&nbspTipo de Telefone</a>
             </li>
             <li class="nav-item item-lateral-menu">
-                <a class="nav-link link-lateral-menu @yield('activeUser')" href="user" id="1"><i class="fas fa-user-friends"></i>&nbspUsuarios</a>
+                <a class="nav-link link-lateral-menu @yield('activeUser')" href="{{ route('collaborator.index') }}" id="1"><i class="fas fa-user-friends"></i>&nbspUsuarios</a>
             </li>
             <li class="nav-item item-lateral-menu">
                 <a class="nav-link link-lateral-menu @yield('activeCli')" href="#section2" id="2"><i class="fas fa-users"></i>&nbspClientes</a>

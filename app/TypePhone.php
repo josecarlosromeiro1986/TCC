@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class TypePhone extends Model
 {
     protected $table = 'type_phones';
+    protected $fillable = ['description', 'active'];
 }

@@ -16,6 +16,7 @@ class CreateTypePhonesTable extends Migration
         Schema::create('type_phones', function (Blueprint $table) {
             $table->id();
             $table->string('description');
+            $table->enum('active', ['Y', 'N'])->default('Y');
             $table->timestamps();
         });
     }

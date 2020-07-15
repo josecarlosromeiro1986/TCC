@@ -4,7 +4,7 @@
 @section('content')
     <div class="center-content">
         <h1 class="display-4 text-center">Novo Tipo de Telefone</h1>
-        <form class="needs-validation" action="{{ route('typePhone.store', $typePhone->id) }}" method="post" novalidate>
+        <form class="needs-validation" action="{{ route('typePhone.store') }}" method="POST" novalidate>
             @include('phone.typePhone.form')
         </form>
     </div>

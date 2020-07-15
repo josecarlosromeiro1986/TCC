@@ -20,11 +20,14 @@ class CreateCollaboratorsTable extends Migration
             $table->string('rg', 9);
             $table->string('cpf', 14);
             $table->date('birth');
+            $table->date('start');
+            $table->date('exit')->nullable();
             $table->string('cep', 9);
             $table->string('address');
             $table->integer('number');
-            $table->string('complement');
+            $table->string('complement')->nullable();
             $table->string('city');
+            $table->string('state');
             $table->string('neighborhood');
             $table->string('email');
             $table->string('user');

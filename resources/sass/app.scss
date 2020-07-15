@@ -1,27 +1,32 @@
+$theme-colors: (
+  "cst": #0d4a6f
+);
+
 @import "~bootstrap/scss/bootstrap";
 
 .table-buttons {
 text-align: right;
 }
 
-.table-buttons form{
+.table-buttons form {
 display: contents;
 }
 
 .top-menu {
-min-height: 56px;
+    min-height: 56px;
 }
 
 .lateral-menu {
-position: fixed;
-width: 250px;
-height: calc(100vh - 56px);
-overflow-y: auto;
-transition: 1s;
+    position: fixed;
+    width: 250px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    transition: 1s;
+    background-color: #A9A9A9;
 }
 
 .bk-color {
-background-color: #0d4a6f;
+    background-color: #0d4a6f;
 }
 
 .item-lateral-menu {
@@ -29,72 +34,76 @@ padding: 10px 10px;
 }
 
 .item-lateral-menu:hover {
-border-left: 3px solid #343a40;
-background-color: whitesmoke;
-font-weight: bold;
+    border-left: 3px solid #343a40;
+    background-color: #D3D3D3;
+    font-weight: bold;
 }
 
 .activeElement {
-font-weight: bold;
+    font-weight: bold;
 }
 
 .link-lateral-menu {
-color: black;
+    color: black;
 }
 
 .link-lateral-menu:hover {
-color: black;
+    color: black;
 }
 
 .button-toggle {
-color: darkgray;
-margin-right: 10px;
-font-size: 25px;
-font-weight: bold;
-cursor: pointer;
+    color: darkgray;
+    margin-right: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .button-toggle:hover {
-color: white;
+    color: white;
 }
 
 .content {
-margin-left: 250px;
-height: calc(100vh - 56px);
-overflow-y: auto;
-background-color: whitesmoke;
-scroll-behavior: smooth;
-transition: 1s;
+    margin-left: 250px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    background-color: whitesmoke;
+    scroll-behavior: smooth;
+    transition: 1s;
 }
 
 .toHide {
-transition: 1s;
-margin-left: -250px;
+    transition: 1s;
+    margin-left: -250px;
 }
 
 .expand {
-transition: 1s;
-margin-left: 0;
+    transition: 1s;
+    margin-left: 0;
+}
+
+.modal-body {
+    background-color: #F46163;
 }
 
 @media (max-width: 768px) {
-.not-mobile {
-    display: none;
-}
+    .not-mobile {
+        display: none;
+    }
 
-.center-content {
-    margin: 0 auto;
-    width: 100%;
-}
+    .center-content {
+        margin: 0 auto;
+        width: 100%;
+    }
 }
 
 @media (min-width: 768px) {
-.mobile {
-    display: none;
-}
+    .mobile {
+        display: none;
+    }
 
-.center-content {
-    margin: 0 auto;
-    width: 50%;
-}
+    .center-content {
+        margin: 0 auto;
+        width: 50%;
+    }
 }
