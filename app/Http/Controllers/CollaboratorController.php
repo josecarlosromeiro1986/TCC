@@ -33,6 +33,7 @@ class CollaboratorController extends Controller
                 ['collaborators.active', '=', 'Y'],
                 ['phones.main', '=', 'Y']
             ])//->toSql();
+            ->orderByRaw('collaborators.name ASC')
             ->paginate(5)
             ->onEachSide(0);
         //dd($collaborators);

@@ -15,6 +15,9 @@
             <label for="access_id">Nível de acesso</label>
             <select name="access_id" class="custom-select" id="access_id" placeholder="Selecione o nivel de acesso:"
                 required>
+                @if (!isset($office->access_id))
+                    <option selected disabled value="">Selecione o nivel de acesso:</option>
+                @endif
                 @foreach ($access as $acces)
                     @if (isset($office->access_id) && $office->access_id === $acces->id)
                         <option value="{{ $acces->id }}" selected>{{ $acces->access }}</option>
@@ -31,5 +34,6 @@
     <div class="form-row">
         <div class="form-group col-md-12">
             <button type="submit" class="btn btn-cst btn-block">Salvar</button>
+            <a href="{{ route('office.index') }}" class="btn btn btn-secondary btn-block" role="button" aria-pressed="true">Voltar</a>
         </div>
     </div>

@@ -14,11 +14,16 @@ class Office extends Model
      */
     public function search($filter = null)
     {
-        $results = $this->where(function ($query) use ($filter) {
-            if ($filter) {
-                $query->where('description', 'RLIKE', $filter);
-            }
-        })->paginate(5)->onEachSide(0);
+        $results = $this
+            ->join('access', 'offices.access_id', '=', 'access.id')
+            ->select('offices.*', 'access.access')
+            ->where([
+                ['description', 'RLIKE', $filter],
+                ['offices.active', '=', 'Y']
+            ])
+            ->orderByRaw('offices.description ASC')
+            ->paginate(5)
+            ->onEachSide(0);
 
         return $results;
     }

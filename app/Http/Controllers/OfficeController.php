@@ -29,6 +29,7 @@ class OfficeController extends Controller
             ->join('access', 'offices.access_id', '=', 'access.id')
             ->select('offices.*', 'access.access')
             ->where('offices.active', 'Y')
+            ->orderByRaw('offices.description ASC')
             ->paginate(5)
             ->onEachSide(0);
 
@@ -121,12 +122,11 @@ class OfficeController extends Controller
 
     public function search(Request $request)
     {
-        $filters = $request->except('_token');
         $offices = $this->office->search($request->filter);
 
         return view('office.index', [
             'offices' => $offices,
-            'filters' => $filters,
+            'filters' => $request->filter,
         ]);
     }
 }

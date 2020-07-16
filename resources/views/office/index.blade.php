@@ -20,51 +20,63 @@
         </div>
     </form>
     <br />
-    @csrf
-    <table class="table table-hover shadow">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col-2">Descrição</th>
-                <th scope="col-2">Acesso</th>
-                <th class="text-center not-mobile" scope="col-2" width="250">Opções</th>
-                <th class="text-center mobile" scope="col-2">Opções</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($offices as $office)
+    <div class="table-responsive">
+        <table class="table table-bordered shadow">
+            <thead class="thead-dark">
                 <tr>
-                    <td>{{ $office->description }}</td>
-                    <td>{{ $office->access }}</td>
-                    <td class="text-center table-buttons not-mobile">
-                        <a class="btn btn-info" href="{{ route('office.edit', $office) }}" role="button">
-                            <i class="fas fa-pencil-alt"></i>&nbspEditar
-                        </a>
-                        <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete" role="button">
-                            <i class="fas fa-pencil-alt"></i>&nbspExcluir
-                        </a>
-                    </td>
-                    <td class="text-center mobile">
-                        <div class="dropdown">
-                            <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <i class="fas fa-list"></i>
-                            </button>
-                            <div class="dropdown-menu bg-dark text-white" aria-labelledby="dropdownMenu2">
-                                <a class="dropdown-item text-center bg-info text-white" name="" id=""
-                                    href="{{ route('office.edit', $office) }}" role="button">
-                                    <i class="fas fa-pencil-alt"></i>&nbspEditar
-                                </a>
-                                <a class="dropdown-item text-center bg-danger text-white" data-toggle="modal"
-                                    data-target="#delete" role="button">
-                                    <i class="fas fa-trash-alt"></i>&nbspExcluir
-                                </a>
-                            </div>
-                        </div>
-                    </td>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Acesso</th>
+                    <th class="text-center not-mobile" scope="col" width="250">Opções</th>
+                    <th class="text-center mobile" scope="col">Opções</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($offices as $office)
+                    <tr>
+                        <td>{{ $office->description }}</td>
+                        <td>{{ $office->access }}</td>
+                        <td class="text-center table-buttons not-mobile">
+                            <a class="btn btn-info" href="{{ route('office.edit', $office) }}" role="button">
+                                <i class="fas fa-pencil-alt"></i>&nbspEditar
+                            </a>
+                            <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete" role="button">
+                                <i class="fas fa-pencil-alt"></i>&nbspExcluir
+                            </a>
+                        </td>
+                        <td class="text-center mobile">
+                            <div class="dropdown">
+                                <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                                <div class="dropdown-menu bg-dark text-white" aria-labelledby="dropdownMenu2">
+                                    <a class="dropdown-item text-center bg-info text-white" name="" id=""
+                                        href="{{ route('office.edit', $office) }}" role="button">
+                                        <i class="fas fa-pencil-alt"></i>&nbspEditar
+                                    </a>
+                                    <a class="dropdown-item text-center bg-danger text-white" data-toggle="modal"
+                                        data-target="#delete" role="button">
+                                        <i class="fas fa-trash-alt"></i>&nbspExcluir
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    @if (isset($filters))
+        {!! $offices->appends($filters)->links() !!}
+    @else
+        {!! $offices->links() !!}
+    @endif
+
+    <div class="center-content">
+        <a href="{{ route('home') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -89,10 +101,4 @@
             </div>
         </div>
     </div>
-
-    @if (isset($filters))
-        {!! $offices->appends($filters)->links() !!}
-    @else
-        {!! $offices->links() !!}
-    @endif
 @endsection

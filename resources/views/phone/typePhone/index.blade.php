@@ -9,37 +9,39 @@
         <br />
         @include('includes.alerts')
         @csrf
-        <table class="table table-hover shadow">
-            <thead class="thead-dark">
-                <tr>
-                <th scope="col-2">Descrição</th>
-                <th class="text-center not-mobile" scope="col-2" width="250">Opções</th>
-                <th class="text-center mobile" scope="col-2">Opções</th>
-                </tr>
-            </thead>
-            <tbody>            
-                @foreach ($typePhones as $typePhone)                    
+        <div class="table-responsive">
+            <table class="table table-hover shadow">
+                <thead class="thead-dark">
                     <tr>
-                        <td>{{ $typePhone->description }}</td>
-                        <td class="text-center table-buttons not-mobile">
-                            <a class="btn btn-info text-white" href="{{ route('typePhone.edit', $typePhone) }}" role="button"><i class="fas fa-pencil-alt"></i>&nbspEditar</a>
-                            <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete" role="button"><i class="fas fa-pencil-alt"></i>&nbspExcluir</a>
-                        </td>
-                        <td class="text-center mobile">
-                            <div class="dropdown">
-                                <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-list"></i>
-                                </button>
-                                <div class="dropdown-menu bg-dark text-white" aria-labelledby="dropdownMenu2">
-                                    <a class="dropdown-item text-center bg-info text-white" name="" id="" href="{{ route('typePhone.edit', $typePhone) }}" role="button"><i class="fas fa-pencil-alt"></i>&nbspEditar</a>
-                                    <a class="dropdown-item text-center bg-danger text-white" data-toggle="modal" data-target="#delete" role="button"><i class="fas fa-trash-alt"></i>&nbspExcluir</a>
-                                </div>
-                            </div>
-                        </td>
+                    <th scope="col-2">Descrição</th>
+                    <th class="text-center not-mobile" scope="col-2" width="250">Opções</th>
+                    <th class="text-center mobile" scope="col-2">Opções</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>            
+                    @foreach ($typePhones as $typePhone)
+                        <tr>
+                            <td>{{ $typePhone->description }}</td>
+                            <td class="text-center table-buttons not-mobile">
+                                <a class="btn btn-info text-white" href="{{ route('typePhone.edit', $typePhone) }}" role="button"><i class="fas fa-pencil-alt"></i>&nbspEditar</a>
+                                <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete" role="button"><i class="fas fa-pencil-alt"></i>&nbspExcluir</a>
+                            </td>
+                            <td class="text-center mobile">
+                                <div class="dropdown">
+                                    <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-list"></i>
+                                    </button>
+                                    <div class="dropdown-menu bg-dark text-white" aria-labelledby="dropdownMenu2">
+                                        <a class="dropdown-item text-center bg-info text-white" name="" id="" href="{{ route('typePhone.edit', $typePhone) }}" role="button"><i class="fas fa-pencil-alt"></i>&nbspEditar</a>
+                                        <a class="dropdown-item text-center bg-danger text-white" data-toggle="modal" data-target="#delete" role="button"><i class="fas fa-trash-alt"></i>&nbspExcluir</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Modal -->

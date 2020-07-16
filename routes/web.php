@@ -18,6 +18,6 @@ Route::any('office/search', 'OfficeController@search')->name('office.search');
 Route::resource('typePhone', 'TypePhoneController');
 Route::resource('collaborator', 'CollaboratorController');
 
-Route::get('/', function () {
+Route::get('home', function () {
     return view('index');
-});
+})->name('home');
