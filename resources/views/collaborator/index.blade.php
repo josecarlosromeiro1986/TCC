@@ -43,10 +43,10 @@
                             <a class="btn btn-info" href="{{ route('collaborator.edit', $collaborator) }}" role="button">
                                 <i class="fas fa-pencil-alt"></i>&nbspEditar
                             </a>
-                            <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete" role="button">
+                            <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $collaborator->id) }}" role="button">
                                 <i class="fas fa-pencil-alt"></i>&nbspExcluir
                             </a>
-                            <a class="btn btn-cst" href="{{ route('collaborator.edit', $collaborator) }}" role="button">
+                            <a class="btn btn-cst" href="{{ route('collaborator.show', $collaborator) }}" role="button">
                                 <i class="far fa-id-card"></i>&nbspDetalhes
                             </a>
                         </td>
@@ -62,17 +62,40 @@
                                         <i class="fas fa-pencil-alt"></i>&nbspEditar
                                     </a>
                                     <a class="dropdown-item text-center bg-danger text-white" data-toggle="modal"
-                                        data-target="#delete" role="button">
+                                        data-target="#delete{{ str_replace(' ', '', $collaborator->id) }}" role="button">
                                         <i class="fas fa-trash-alt"></i>&nbspExcluir
                                     </a>
                                     <a class="dropdown-item text-center bg-cst text-white" name="" id=""
-                                        href="{{ route('collaborator.edit', $collaborator) }}" role="button">
+                                        href="{{ route('collaborator.show', $collaborator) }}" role="button">
                                         <i class="far fa-id-card"></i>&nbspDetalhes
                                     </a>
                                 </div>
                             </div>
                         </td>
                     </tr>
+                    <!-- Modal Delete-->
+                    <div class="modal fade" id="delete{{ str_replace(' ', '', $collaborator->id) }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog">
+                            <div class="modal-content bg-cst text-white">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="myModalLabel">Excluir Usuário</h5>
+                                </div>
+                                <form action="{{ route('collaborator.destroy', $collaborator) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="modal-body bg-modal text-white">
+                                        <p class="text-center">
+                                            Tem certeza que deseja excluir: {{ $collaborator->name }}?
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success">Sim, Confirmar</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Não, Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
             </tbody>
         </table>
@@ -87,29 +110,5 @@
 
     <div class="center-content">
         <a href="{{ route('home') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog">
-            <div class="modal-content bg-cst text-white">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">Excluir Usuário</h5>
-                </div>
-                <form action="{{-- {{ route('collaborator.destroy', $collaborator ?? '') }} --}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <div class="modal-body text-white">
-                        <p class="text-center">
-                            Tem certeza que deseja excluir: {{ $collaborator->name ?? ''}}?
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Sim, Confirmar</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Não, Cancelar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    </div>    
 @endsection

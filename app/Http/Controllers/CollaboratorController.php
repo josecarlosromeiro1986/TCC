@@ -32,11 +32,10 @@ class CollaboratorController extends Controller
             ->where([
                 ['collaborators.active', '=', 'Y'],
                 ['phones.main', '=', 'Y']
-            ])//->toSql();
-            ->orderByRaw('collaborators.name ASC')
+            ])->orderByRaw('collaborators.name ASC')
             ->paginate(5)
             ->onEachSide(0);
-        //dd($collaborators);
+
         return view('collaborator.index', [
             'collaborators' => $collaborators,
         ]);
@@ -52,7 +51,7 @@ class CollaboratorController extends Controller
         $offices = $this->office
             ->where('active', 'y')
             ->select('id', 'description')
-            ->paginate();
+            ->get();
 
         return view('collaborator.create', [
             'offices' => $offices,
@@ -109,7 +108,24 @@ class CollaboratorController extends Controller
      */
     public function show(Collaborator $collaborator)
     {
-        //
+        $collaborator = $this->collaborator
+            ->join('offices', 'collaborators.office_id', '=', 'offices.id')
+            ->select('collaborators.*', 'offices.description as office')
+            ->where([
+                ['collaborators.id', '=',  $collaborator->id]
+            ])->first();
+
+        $phones = Phone::where([
+            ['collaborator_id', '=', $collaborator->id],
+            ['active', '=', 'Y']
+        ])->orderByRaw('main ASC, contact ASC')
+            ->paginate(6)
+            ->onEachSide(0);
+
+        return view('collaborator.show', [
+            'collaborator' => $collaborator,
+            'phones' => $phones,
+        ]);
     }
 
     /**
@@ -120,7 +136,21 @@ class CollaboratorController extends Controller
      */
     public function edit(Collaborator $collaborator)
     {
-        //
+        $offices = $this->office
+            ->where('active', 'y')
+            ->select('id', 'description')
+            ->get();
+
+        $phone = Phone::where([
+            ['collaborator_id', '=', $collaborator->id],
+            ['main', '=', 'Y'],
+        ])->first();
+
+        return view('collaborator.edit', [
+            'collaborator' => $collaborator,
+            'offices' => $offices,
+            'phone' => $phone,
+        ]);
     }
 
     /**
@@ -132,7 +162,24 @@ class CollaboratorController extends Controller
      */
     public function update(Request $request, Collaborator $collaborator)
     {
-        //
+        Phone::where('id', $request->phone_id)
+            ->update([
+                'number' => $request->phone,
+                'contact' => $request->name
+            ]);
+
+        $collaborator->update(
+            $request->except(
+                '_method',
+                '_token',
+                'phone_id',
+                'phone',
+            )
+        );
+
+        return redirect()
+            ->route('collaborator.index')
+            ->with('success', 'Usuário: "' . $collaborator->name . '" Editado com sucesso!');
     }
 
     /**
@@ -143,6 +190,17 @@ class CollaboratorController extends Controller
      */
     public function destroy(Collaborator $collaborator)
     {
-        //
+        $collaborator->update([
+            'active' => 'N',
+        ]);
+
+        Phone::where('collaborator_id', $collaborator->id)
+            ->update([
+                'active' => 'N',
+            ]);
+
+        return redirect()
+            ->route('collaborator.index')
+            ->with('success', 'Usuário: "' . $collaborator->name . '" deletado com sucesso!');
     }
 }

@@ -30,6 +30,8 @@
   --light: #f8f9fa;
   --dark: #343a40;
   --cst: #0d4a6f;
+  --modal: #F46163;
+  --site: whitesmoke;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -2059,6 +2061,50 @@ pre code {
   background-color: #abc0ce;
 }
 
+.table-modal,
+.table-modal > th,
+.table-modal > td {
+  background-color: #fcd3d3;
+}
+
+.table-modal th,
+.table-modal td,
+.table-modal thead th,
+.table-modal tbody + tbody {
+  border-color: #f9adae;
+}
+
+.table-hover .table-modal:hover {
+  background-color: #fabbbb;
+}
+
+.table-hover .table-modal:hover > td,
+.table-hover .table-modal:hover > th {
+  background-color: #fabbbb;
+}
+
+.table-site,
+.table-site > th,
+.table-site > td {
+  background-color: #fcfcfc;
+}
+
+.table-site th,
+.table-site td,
+.table-site thead th,
+.table-site tbody + tbody {
+  border-color: #fafafa;
+}
+
+.table-hover .table-site:hover {
+  background-color: #efefef;
+}
+
+.table-hover .table-site:hover > td,
+.table-hover .table-site:hover > th {
+  background-color: #efefef;
+}
+
 .table-active,
 .table-active > th,
 .table-active > td {
@@ -3096,6 +3142,88 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(49, 101, 133, 0.5);
 }
 
+.btn-modal {
+  color: #fff;
+  background-color: #F46163;
+  border-color: #F46163;
+}
+
+.btn-modal:hover {
+  color: #fff;
+  background-color: #f23d40;
+  border-color: #f13134;
+}
+
+.btn-modal:focus,
+.btn-modal.focus {
+  color: #fff;
+  background-color: #f23d40;
+  border-color: #f13134;
+  box-shadow: 0 0 0 0.2rem rgba(246, 121, 122, 0.5);
+}
+
+.btn-modal.disabled,
+.btn-modal:disabled {
+  color: #fff;
+  background-color: #F46163;
+  border-color: #F46163;
+}
+
+.btn-modal:not(:disabled):not(.disabled):active,
+.btn-modal:not(:disabled):not(.disabled).active,
+.show > .btn-modal.dropdown-toggle {
+  color: #fff;
+  background-color: #f13134;
+  border-color: #f02528;
+}
+
+.btn-modal:not(:disabled):not(.disabled):active:focus,
+.btn-modal:not(:disabled):not(.disabled).active:focus,
+.show > .btn-modal.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(246, 121, 122, 0.5);
+}
+
+.btn-site {
+  color: #212529;
+  background-color: whitesmoke;
+  border-color: whitesmoke;
+}
+
+.btn-site:hover {
+  color: #212529;
+  background-color: #e2e2e2;
+  border-color: gainsboro;
+}
+
+.btn-site:focus,
+.btn-site.focus {
+  color: #212529;
+  background-color: #e2e2e2;
+  border-color: gainsboro;
+  box-shadow: 0 0 0 0.2rem rgba(213, 214, 214, 0.5);
+}
+
+.btn-site.disabled,
+.btn-site:disabled {
+  color: #212529;
+  background-color: whitesmoke;
+  border-color: whitesmoke;
+}
+
+.btn-site:not(:disabled):not(.disabled):active,
+.btn-site:not(:disabled):not(.disabled).active,
+.show > .btn-site.dropdown-toggle {
+  color: #212529;
+  background-color: gainsboro;
+  border-color: #d5d5d5;
+}
+
+.btn-site:not(:disabled):not(.disabled):active:focus,
+.btn-site:not(:disabled):not(.disabled).active:focus,
+.show > .btn-site.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(213, 214, 214, 0.5);
+}
+
 .btn-outline-primary {
   color: #007bff;
   border-color: #007bff;
@@ -3418,6 +3546,78 @@ fieldset:disabled a.btn {
 .btn-outline-cst:not(:disabled):not(.disabled).active:focus,
 .show > .btn-outline-cst.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(13, 74, 111, 0.5);
+}
+
+.btn-outline-modal {
+  color: #F46163;
+  border-color: #F46163;
+}
+
+.btn-outline-modal:hover {
+  color: #fff;
+  background-color: #F46163;
+  border-color: #F46163;
+}
+
+.btn-outline-modal:focus,
+.btn-outline-modal.focus {
+  box-shadow: 0 0 0 0.2rem rgba(244, 97, 99, 0.5);
+}
+
+.btn-outline-modal.disabled,
+.btn-outline-modal:disabled {
+  color: #F46163;
+  background-color: transparent;
+}
+
+.btn-outline-modal:not(:disabled):not(.disabled):active,
+.btn-outline-modal:not(:disabled):not(.disabled).active,
+.show > .btn-outline-modal.dropdown-toggle {
+  color: #fff;
+  background-color: #F46163;
+  border-color: #F46163;
+}
+
+.btn-outline-modal:not(:disabled):not(.disabled):active:focus,
+.btn-outline-modal:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-modal.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(244, 97, 99, 0.5);
+}
+
+.btn-outline-site {
+  color: whitesmoke;
+  border-color: whitesmoke;
+}
+
+.btn-outline-site:hover {
+  color: #212529;
+  background-color: whitesmoke;
+  border-color: whitesmoke;
+}
+
+.btn-outline-site:focus,
+.btn-outline-site.focus {
+  box-shadow: 0 0 0 0.2rem rgba(245, 245, 245, 0.5);
+}
+
+.btn-outline-site.disabled,
+.btn-outline-site:disabled {
+  color: whitesmoke;
+  background-color: transparent;
+}
+
+.btn-outline-site:not(:disabled):not(.disabled):active,
+.btn-outline-site:not(:disabled):not(.disabled).active,
+.show > .btn-outline-site.dropdown-toggle {
+  color: #212529;
+  background-color: whitesmoke;
+  border-color: whitesmoke;
+}
+
+.btn-outline-site:not(:disabled):not(.disabled):active:focus,
+.btn-outline-site:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-site.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(245, 245, 245, 0.5);
 }
 
 .btn-link {
@@ -5622,6 +5822,40 @@ a.badge-cst.focus {
   box-shadow: 0 0 0 0.2rem rgba(13, 74, 111, 0.5);
 }
 
+.badge-modal {
+  color: #fff;
+  background-color: #F46163;
+}
+
+a.badge-modal:hover,
+a.badge-modal:focus {
+  color: #fff;
+  background-color: #f13134;
+}
+
+a.badge-modal:focus,
+a.badge-modal.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(244, 97, 99, 0.5);
+}
+
+.badge-site {
+  color: #212529;
+  background-color: whitesmoke;
+}
+
+a.badge-site:hover,
+a.badge-site:focus {
+  color: #212529;
+  background-color: gainsboro;
+}
+
+a.badge-site:focus,
+a.badge-site.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(245, 245, 245, 0.5);
+}
+
 .jumbotron {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
@@ -5793,6 +6027,34 @@ a.badge-cst.focus {
 
 .alert-cst .alert-link {
   color: #02080c;
+}
+
+.alert-modal {
+  color: #7f3233;
+  background-color: #fddfe0;
+  border-color: #fcd3d3;
+}
+
+.alert-modal hr {
+  border-top-color: #fabbbb;
+}
+
+.alert-modal .alert-link {
+  color: #5a2424;
+}
+
+.alert-site {
+  color: #7f7f7f;
+  background-color: #fdfdfd;
+  border-color: #fcfcfc;
+}
+
+.alert-site hr {
+  border-top-color: #efefef;
+}
+
+.alert-site .alert-link {
+  color: #666666;
 }
 
 @-webkit-keyframes progress-bar-stripes {
@@ -6248,6 +6510,40 @@ a.badge-cst.focus {
   color: #fff;
   background-color: #07263a;
   border-color: #07263a;
+}
+
+.list-group-item-modal {
+  color: #7f3233;
+  background-color: #fcd3d3;
+}
+
+.list-group-item-modal.list-group-item-action:hover,
+.list-group-item-modal.list-group-item-action:focus {
+  color: #7f3233;
+  background-color: #fabbbb;
+}
+
+.list-group-item-modal.list-group-item-action.active {
+  color: #fff;
+  background-color: #7f3233;
+  border-color: #7f3233;
+}
+
+.list-group-item-site {
+  color: #7f7f7f;
+  background-color: #fcfcfc;
+}
+
+.list-group-item-site.list-group-item-action:hover,
+.list-group-item-site.list-group-item-action:focus {
+  color: #7f7f7f;
+  background-color: #efefef;
+}
+
+.list-group-item-site.list-group-item-action.active {
+  color: #fff;
+  background-color: #7f7f7f;
+  border-color: #7f7f7f;
 }
 
 .close {
@@ -7227,6 +7523,28 @@ button.bg-cst:focus {
   background-color: #082c41 !important;
 }
 
+.bg-modal {
+  background-color: #F46163 !important;
+}
+
+a.bg-modal:hover,
+a.bg-modal:focus,
+button.bg-modal:hover,
+button.bg-modal:focus {
+  background-color: #f13134 !important;
+}
+
+.bg-site {
+  background-color: whitesmoke !important;
+}
+
+a.bg-site:hover,
+a.bg-site:focus,
+button.bg-site:hover,
+button.bg-site:focus {
+  background-color: gainsboro !important;
+}
+
 .bg-white {
   background-color: #fff !important;
 }
@@ -7309,6 +7627,14 @@ button.bg-cst:focus {
 
 .border-cst {
   border-color: #0d4a6f !important;
+}
+
+.border-modal {
+  border-color: #F46163 !important;
+}
+
+.border-site {
+  border-color: whitesmoke !important;
 }
 
 .border-white {
@@ -10958,6 +11284,24 @@ a.text-cst:focus {
   color: #051c2b !important;
 }
 
+.text-modal {
+  color: #F46163 !important;
+}
+
+a.text-modal:hover,
+a.text-modal:focus {
+  color: #ef191c !important;
+}
+
+.text-site {
+  color: whitesmoke !important;
+}
+
+a.text-site:hover,
+a.text-site:focus {
+  color: #cfcfcf !important;
+}
+
 .text-body {
   color: #212529 !important;
 }
@@ -11176,10 +11520,6 @@ a.text-cst:focus {
 .expand {
   transition: 1s;
   margin-left: 0;
-}
-
-.modal-body {
-  background-color: #F46163;
 }
 
 @media (max-width: 768px) {

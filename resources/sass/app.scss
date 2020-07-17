@@ -1,5 +1,7 @@
 $theme-colors: (
-  "cst": #0d4a6f
+  "cst": #0d4a6f,
+  "modal": #F46163,
+  "site": whitesmoke
 );
 
 @import "~bootstrap/scss/bootstrap";
@@ -80,10 +82,6 @@ padding: 10px 10px;
 .expand {
     transition: 1s;
     margin-left: 0;
-}
-
-.modal-body {
-    background-color: #F46163;
 }
 
 @media (max-width: 768px) {

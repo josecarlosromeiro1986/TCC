@@ -47,14 +47,14 @@
     <!-- Modal -->
     <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog">
-            <div class="modal-content bk-color text-white">
+            <div class="modal-content bg-cst text-white">
                 <div class="modal-header">
                     <h5 class="modal-title" id="myModalLabel">Excluir Tipo de Telefone</h5>
                 </div>
                 <form action="{{ route('typePhone.destroy', $typePhone ?? '') }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <div class="modal-body text-white">
+                    <div class="modal-body bg-modal text-white">
                         <p class="text-center">
                             Tem certeza que deseja excluir: {{ $typePhone->description ?? ''}}?
                         </p>

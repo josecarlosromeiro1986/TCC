@@ -88,7 +88,7 @@
                 <form action="{{ route('office.destroy', $office ?? '') }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <div class="modal-body text-white">
+                    <div class="modal-body bg-modal text-white">
                         <p class="text-center">
                             Tem certeza que deseja excluir: {{ $office->description ?? ''}}?
                         </p>

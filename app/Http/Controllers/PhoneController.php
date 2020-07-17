@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Collaborator;
 use App\Phone;
 use Illuminate\Http\Request;
 
 class PhoneController extends Controller
 {
+    private $phone;
+
+    public function __construct(Phone $phone)
+    {
+        $this->phone = $phone;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +43,18 @@ class PhoneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->phone->number = $request->phone;
+        $this->phone->contact = $request->contact;
+        $this->phone->collaborator_id = $request->collaborator_id;
+        $this->phone->main = 'N';
+        $this->phone->save();
+
+        $collaborator = new Collaborator;
+        $collaborator->id = $request->collaborator_id;
+
+        return redirect()
+            ->route('collaborator.show', $collaborator)
+            ->with('success', 'Contato: "' . $request->contact . '" Adicionado com sucesso!');
     }
 
     /**
@@ -69,7 +88,17 @@ class PhoneController extends Controller
      */
     public function update(Request $request, Phone $phone)
     {
-        //
+        $collaborator = new Collaborator;
+        $collaborator->id = $phone->collaborator_id;
+
+        $phone->update([
+            'number' => $request->phone,
+            'contact' => $request->contact
+        ]);
+
+        return redirect()
+            ->route('collaborator.show', $collaborator)
+            ->with('success', 'Contato: "' . $request->contact . '" editado com sucesso!');
     }
 
     /**
@@ -80,6 +109,15 @@ class PhoneController extends Controller
      */
     public function destroy(Phone $phone)
     {
-        //
+        $collaborator = new Collaborator;
+        $collaborator->id = $phone->collaborator_id;
+
+        $phone->update([
+            'active' => 'N',
+        ]);
+
+        return redirect()
+            ->route('collaborator.show', $collaborator)
+            ->with('success', 'Contato: "' . $phone->contact . '" deletado com sucesso!');
     }
 }
