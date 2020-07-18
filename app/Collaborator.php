@@ -15,7 +15,7 @@ class Collaborator extends Model
         'birth',
         'office_id',
         'start',
-        'end',
+        'exit',
         'cep',
         'address',
         'complement',

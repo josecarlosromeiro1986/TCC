@@ -24,6 +24,7 @@ class CreateClientsTable extends Migration
             $table->integer('number');
             $table->string('complement')->nullable();
             $table->string('city');
+            $table->string('state');
             $table->string('neighborhood');
             $table->string('email');
             $table->mediumText('note')->nullable();

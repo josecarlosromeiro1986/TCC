@@ -1,33 +1,18 @@
 @extends('index')
-@section('title', 'Usuários')
-@section('activeUser', 'activeElement')
+@section('title', 'Cliente')
+@section('activeCli', 'activeElement')
 @section('content')
     <br class="mobile"/>
     <hr class="not-mobile">
     <div class="row not-mobile">
         <div class="col-md-3">
-            <h5>Cargo:&nbsp</h5>
-            <p>{{ $collaborator->office }}</p>
+            <button type="button" class="btn btn-primary btn-lg btn-block">Atendimentos</button>
         </div>
-        <div class="col-md-3">
-            <h5>Status:&nbsp</h5>
-            <p>
-                @if ($collaborator->active === 'Y')
-                    Ativo
-                @else
-                    Inativo
-                @endif
-            </p>
+        <div class="col-md-3">            
+            <button type="button" class="btn btn-primary btn-lg btn-block">Imagens</button>
         </div>
-        <div class="col-md-3">
-            <h5>Data de inicio:&nbsp</h5>
-            <p>{{ date('d/m/Y', strtotime($collaborator->start)) }}</p>
-        </div>        
-        <div class="col-md-3">
-            @if ($collaborator->exit != '')
-                <h5>Data saída:&nbsp</h5>
-                <p>{{ date('d/m/Y', strtotime($collaborator->exit)) }}</p>
-            @endif
+        <div class="col-md-6 text-center">
+            <h4><strong>Cliente Desde:</strong>{{ date('d/m/Y', strtotime($client->created_at)) }}</h4>
         </div>
     </div>
     <hr class="not-mobile">
@@ -36,15 +21,11 @@
         <div class="col">
             <div class="card shadow">
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>Cargo:&nbsp</strong>{{ $collaborator->office }}</li>
-                    <li class="list-group-item"><strong>Data de inicio:&nbsp</strong>{{ date('d/m/Y', strtotime($collaborator->start)) }}</li>
-                    <li class="list-group-item"><strong>Data saída:&nbsp</strong>{{ date('d/m/Y', strtotime($collaborator->exit)) ?? '' }}</li>
-                    <li class="list-group-item"><strong>Status:&nbsp</strong>
-                        @if ($collaborator->active === 'Y')
-                            Ativo
-                        @else
-                            Inativo
-                        @endif
+                    <li class="list-group-item">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Atendimentos</button>
+                    </li>
+                    <li class="list-group-item">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Imagens</button>
                     </li>
                 </ul>
             </div>
@@ -58,11 +39,11 @@
                     <h5><i class="far fa-address-card"></i><strong>&nbspDados Pessoais</strong></h5>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>Nome:&nbsp</strong>{{ $collaborator->name }}</li>
-                    <li class="list-group-item"><strong>CPF:&nbsp</strong>{{ $collaborator->cpf }}</li>
-                    <li class="list-group-item"><strong>rg:&nbsp</strong>{{ $collaborator->rg }}</li>
-                    <li class="list-group-item"><strong>Data de nascimento:&nbsp</strong>{{ date('d/m/Y', strtotime($collaborator->birth)) }}</li>
-                    <li class="list-group-item"><i class="far fa-envelope"></i><strong>&nbspEmail:&nbsp</strong>{{ $collaborator->email }}</li>
+                    <li class="list-group-item"><strong>Nome:&nbsp</strong>{{ $client->name }}</li>
+                    <li class="list-group-item"><strong>CPF:&nbsp</strong>{{ $client->cpf }}</li>
+                    <li class="list-group-item"><strong>rg:&nbsp</strong>{{ $client->rg }}</li>
+                    <li class="list-group-item"><strong>Data de nascimento:&nbsp</strong>{{ date('d/m/Y', strtotime($client->birth)) }}</li>
+                    <li class="list-group-item"><i class="far fa-envelope"></i><strong>&nbspEmail:&nbsp</strong>{{ $client->email }}</li>
                 </ul>
             </div>
             <hr>
@@ -71,13 +52,13 @@
                     <h5><i class="fas fa-house-user"></i><strong>&nbspEndereço</strong></h5>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>CEP:&nbsp</strong>{{ $collaborator->cep }}</li>
-                    <li class="list-group-item"><strong>Estado:&nbsp</strong>{{ $collaborator->state }}</li>
-                    <li class="list-group-item"><strong>Cidade:&nbsp</strong>{{ $collaborator->city }}</li>
-                    <li class="list-group-item"><strong>Bairro:&nbsp</strong>{{ $collaborator->neighborhood }}</li>
-                    <li class="list-group-item"><strong>Rua:&nbsp</strong>{{ $collaborator->address }}</li>
-                    <li class="list-group-item"><strong>Número:&nbsp</strong>{{ $collaborator->number }}</li>
-                    <li class="list-group-item"><strong>Complemento:&nbsp</strong>{{ $collaborator->complement ?? '' }}</li>
+                    <li class="list-group-item"><strong>CEP:&nbsp</strong>{{ $client->cep }}</li>
+                    <li class="list-group-item"><strong>Estado:&nbsp</strong>{{ $client->state }}</li>
+                    <li class="list-group-item"><strong>Cidade:&nbsp</strong>{{ $client->city }}</li>
+                    <li class="list-group-item"><strong>Bairro:&nbsp</strong>{{ $client->neighborhood }}</li>
+                    <li class="list-group-item"><strong>Rua:&nbsp</strong>{{ $client->address }}</li>
+                    <li class="list-group-item"><strong>Número:&nbsp</strong>{{ $client->number }}</li>
+                    <li class="list-group-item"><strong>Complemento:&nbsp</strong>{{ $client->complement ?? '' }}</li>
                 </ul>                
             </div>
             <hr>
@@ -105,7 +86,7 @@
                                     @if ($phone->main != 'Y')
                                         <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $phone->id) }}" role="button" title="Excluir"><i class="far fa-trash-alt"></i></a>                                        
                                     @endif
-                                </td>
+                                </td>                                
                                 <td class="text-center mobile">
                                     <div class="dropdown">
                                         <button class="btn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -192,7 +173,7 @@
                     <h5><i class="far fa-clipboard"></i><strong>&nbspObservações</strong></h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">{{ $collaborator->note ?? '' }}</p>
+                    <p class="card-text">{{ $client->note ?? '' }}</p>
                 </div>
             </div>
             <hr>
@@ -201,7 +182,7 @@
     <div class="row">
     </div>
     <div class="center-content">
-        <a href="{{ route('collaborator.index') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+        <a href="{{ route('client.index') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
     </div>
     <!-- Modal Create-->
     <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -216,7 +197,7 @@
                         <div class="form-group">
                             <label for="phone">Telefone</label>
                             <input type="text" class="form-control shadow-sm phone" name="phone" id="phone" value="" required>
-                            <input type="hidden" id="collaborator_id" name="collaborator_id" value="{{ $collaborator->id }}">
+                            <input type="hidden" id="client_id" name="client_id" value="{{ $client->id }}">
                         </div>
                         <div class="form-group">
                             <label for="contact">Contato</label>

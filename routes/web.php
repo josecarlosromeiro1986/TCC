@@ -18,6 +18,9 @@ Route::resource('office', 'OfficeController');
 Route::any('collaborator/search', 'CollaboratorController@search')->name('collaborator.search');
 Route::resource('collaborator', 'CollaboratorController');
 
+Route::any('client/search', 'ClientController@search')->name('client.search');
+Route::resource('client', 'ClientController');
+
 Route::resource('typePhone', 'TypePhoneController');
 Route::resource('phone', 'PhoneController');
 

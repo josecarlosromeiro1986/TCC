@@ -27,7 +27,7 @@ class UpdateCollaboratorRequest extends FormRequest
             ],
             'cpf' => [
                 'required',
-                Rule::unique('collaborators')->ignore($id),
+                //Rule::unique('collaborators')->ignore($id),
                 'string',
                 'max:14'
             ],

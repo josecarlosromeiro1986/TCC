@@ -193,6 +193,7 @@ class CollaboratorController extends Controller
     {
         $collaborator->update([
             'active' => 'N',
+            'exit' => date('Y-m-d'),
         ]);
 
         Phone::where('collaborator_id', $collaborator->id)
@@ -200,8 +201,7 @@ class CollaboratorController extends Controller
                 'active' => 'N',
             ]);
 
-        return redirect()
-            ->route('collaborator.index')
+        return redirect()->back()
             ->with('success', 'Usuário: "' . $collaborator->name . '" deletado com sucesso!');
     }
 

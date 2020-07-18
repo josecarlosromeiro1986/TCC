@@ -86,22 +86,22 @@
                 </a>
             </li>
             <li class="nav-item item-lateral-menu">
-                <a class="nav-link link-lateral-menu @yield('activeCli')" href="#section2" id="2">
+                <a class="nav-link link-lateral-menu @yield('activeCli')" href="{{ route('client.index') }}">
                     <i class="fas fa-users"></i>&nbspClientes
                 </a>
             </li>
             <li class="nav-item item-lateral-menu">
-                <a class="nav-link link-lateral-menu" href="#section3" id="3">
+                <a class="nav-link link-lateral-menu @yield('activeAtt')" href="#section3" id="3">
                     <i class="fas fa-clipboard-list"></i>&nbspAtendimentos
                 </a>
             </li>
             <li class="nav-item item-lateral-menu">
-                <a class="nav-link link-lateral-menu" href="#section4" id="4">
+                <a class="nav-link link-lateral-menu @yield('activeSch')" href="#section4" id="4">
                     <i class="far fa-calendar-alt"></i>&nbspAgenda
                 </a>
             </li>
             <li class="nav-item item-lateral-menu dropdown">
-                <a class="nav-link link-lateral-menu dropdown-toggle" role="button" id="dropdownMenuLink"
+                <a class="nav-link link-lateral-menu dropdown-toggle @yield('activeRep')" role="button" id="dropdownMenuLink"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="far fa-file-alt"></i>&nbspRelatórios
                 </a>

@@ -31,7 +31,7 @@ class CreateCollaboratorsTable extends Migration
             $table->string('neighborhood');
             $table->string('email');
             $table->string('user');
-            $table->string('password', 10);
+            $table->string('password');
             $table->mediumText('note')->nullable();
             $table->enum('active', ['Y', 'N'])->default('Y');
             $table->timestamps();

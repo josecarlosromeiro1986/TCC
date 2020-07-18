@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class CollaboratorRequest extends FormRequest
+class UpdateClientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,6 +24,8 @@ class CollaboratorRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->segment(2);
+
         return [
             'name' => [
                 'required',
@@ -34,7 +37,7 @@ class CollaboratorRequest extends FormRequest
             ],
             'cpf' => [
                 'required',
-                //'unique:collaborators,cpf',
+                //Rule::unique('clients')->ignore($id),
                 'string',
                 'max:14'
             ],
@@ -49,14 +52,6 @@ class CollaboratorRequest extends FormRequest
                 'max:15'
             ],
             'birth' => [
-                'required',
-                'date_format:Y-m-d'
-            ],
-            'office_id' => [
-                'required',
-                'exists:App\Office,id'
-            ],
-            'start' => [
                 'required',
                 'date_format:Y-m-d'
             ],
@@ -89,15 +84,6 @@ class CollaboratorRequest extends FormRequest
                 'required',
                 'string'
             ],
-            'user' => [
-                'required',
-                'unique:collaborators,user',
-                'string'
-            ],
-            'password' => [
-                'required',
-                'string'
-            ],
             'note' => [
                 'nullable',
                 'string'
@@ -111,7 +97,7 @@ class CollaboratorRequest extends FormRequest
             'name.required' => 'O Nome é Obrigatório!',
             'name.string' => 'O Nome deve ser do tipo texto!',
             'email.required' => 'O E-mail é Obrigatório!',
-            'email.email' => 'O E-mail deve ser válido!',
+            'email.email' => 'Informe um E-mail válido!',
             'cpf.required' => 'O é Obrigatório!',
             'cpf.unique' => 'O CPF informado já está cadastrado!',
             'cpf.string' => 'O CPF deve ser do tipo texto!',
@@ -124,8 +110,6 @@ class CollaboratorRequest extends FormRequest
             'phone.max' => 'O Telefone deve conter no máximo 15 caracteres!',
             'birth.required' => 'A Data de Nascimento é Obrigatória!',
             'birth.date_format' => 'A Data de Nascimento deve ser no formato AAAA-MM-DD!',
-            'office_id.required' => 'O Cargo é Obrigatório!',
-            'office_id.exists' => 'O Cargo informado não existe em nossa base de dados!',
             'start.required' => 'A Data de Início é Obrigatória!',
             'start.date_format' => 'A Data de Inicio deve ser no formato AAAA-MM-DD!',
             'cep.required' => 'O CEP é Obrigatório!',
@@ -142,11 +126,6 @@ class CollaboratorRequest extends FormRequest
             'state.string' => 'O Estado deve ser do tipo texto!',
             'city.required' => 'A Cidade é Obrigatória!',
             'city.string' => 'A Cidade deve ser do tipo texto!',
-            'user.required' => 'O Nome de Usuário é Obrigatório!',
-            'user.unique' => 'O Nome de Usuário já existe, favor escolha outro!',
-            'user.string' => 'O Nome de Usuário deve ser do tipo texto!',
-            'password.required' => 'A Senha é Obrigatória!',
-            'password.string' => 'A Senha deve ser do tipo texto!',
             'note.string' => 'A Observação deve ser do tipo texto!',
         ];
     }
