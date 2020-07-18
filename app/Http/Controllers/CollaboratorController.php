@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Collaborator;
+use App\Http\Requests\CollaboratorRequest;
+use App\Http\Requests\UpdateCollaboratorRequest;
 use App\Office;
 use App\Phone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CollaboratorController extends Controller
 {
@@ -64,29 +67,27 @@ class CollaboratorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CollaboratorRequest $request)
     {
-        $collaborator = $this->collaborator->create(
-            $request->only(
-                'name',
-                'email',
-                'cpf',
-                'rg',
-                'birth',
-                'office_id',
-                'start',
-                'cep',
-                'address',
-                'complement',
-                'number',
-                'neighborhood',
-                'state',
-                'city',
-                'user',
-                'password',
-                'note'
-            )
-        );
+        $collaborator = $this->collaborator->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'cpf' => $request->cpf,
+            'rg' => $request->rg,
+            'birth' => $request->birth,
+            'office_id' => $request->office_id,
+            'start' => $request->start,
+            'cep' => $request->cep,
+            'address' => $request->address,
+            'complement' => $request->complement,
+            'number' => $request->number,
+            'neighborhood' => $request->neighborhood,
+            'state' => $request->state,
+            'city' => $request->city,
+            'user' => $request->user,
+            'password' => Hash::make($request->password),
+            'note' => $request->note,
+        ]);
 
         $phone = new Phone;
         $phone->number = $request->phone;
@@ -160,7 +161,7 @@ class CollaboratorController extends Controller
      * @param  \App\Collaborator  $collaborator
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Collaborator $collaborator)
+    public function update(UpdateCollaboratorRequest $request, Collaborator $collaborator)
     {
         Phone::where('id', $request->phone_id)
             ->update([
@@ -202,5 +203,22 @@ class CollaboratorController extends Controller
         return redirect()
             ->route('collaborator.index')
             ->with('success', 'Usuário: "' . $collaborator->name . '" deletado com sucesso!');
+    }
+
+    /**
+     * Search by filter.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $filters = $request->except('_token');
+        $collaborators = $this->collaborator->search($request->filter);
+
+        return view('collaborator.index', [
+            'collaborators' => $collaborators,
+            'filters' => $filters,
+        ]);
     }
 }

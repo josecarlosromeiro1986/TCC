@@ -28,4 +28,24 @@ class Collaborator extends Model
         'note',
         'active',
     ];
+
+    /**
+     * Filter Offices
+     */
+    public function search($filter = null)
+    {
+        $results = $this
+            ->join('offices', 'collaborators.office_id', '=', 'offices.id')
+            ->join('phones', 'collaborators.id', '=', 'phones.collaborator_id')
+            ->select('collaborators.*', 'offices.description AS office', 'phones.number AS phone')
+            ->where([
+                ['collaborators.name', 'RLIKE', $filter],
+                ['collaborators.active', '=', 'Y'],
+                ['phones.main', '=', 'Y']
+            ])->orderByRaw('collaborators.name ASC')
+            ->paginate(5)
+            ->onEachSide(0);
+
+        return $results;
+    }
 }

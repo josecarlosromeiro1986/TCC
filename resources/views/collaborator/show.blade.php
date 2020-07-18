@@ -63,7 +63,7 @@
                     <li class="list-group-item"><i class="far fa-envelope"></i><strong>&nbspEmail:&nbsp</strong>{{ $collaborator->email }}</li>
                 </ul>
             </div>
-            <br />
+            <hr>
             <div class="card shadow">
                 <div class="card-header">
                     <h5><i class="fas fa-house-user"></i><strong>&nbspEndereço</strong></h5>
@@ -78,7 +78,7 @@
                     <li class="list-group-item"><strong>Complemento:&nbsp</strong>{{ $collaborator->complement ?? '' }}</li>
                 </ul>                
             </div>
-            <br />
+            <hr>
         </div>        
         <div class="col-md-6">            
             <div class="card shadow">
@@ -179,7 +179,8 @@
                 </table>
                 <a class="btn btn-cst text-white" data-toggle="modal" data-target="#create" role="button"><i class="fas fa-plus"></i>&nbspTelefone</a>
             </div>
-            {!! $phones->links() !!}
+            {!! $phones->links() !!}             
+            <hr>
             <div class="card shadow">
                 <div class="card-header">
                     <h5><i class="far fa-clipboard"></i><strong>&nbspObservações</strong></h5>
@@ -187,10 +188,10 @@
                 <div class="card-body">
                     <p class="card-text">{{ $collaborator->note ?? '' }}</p>
                 </div>
-            </div>                       
+            </div>
+            <hr>
         </div>
     </div>
-    <br />
     <div class="row">
     </div>
     <div class="center-content">

@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('office', 'OfficeController');
 Route::any('office/search', 'OfficeController@search')->name('office.search');
+Route::resource('office', 'OfficeController');
+
+Route::any('collaborator/search', 'CollaboratorController@search')->name('collaborator.search');
+Route::resource('collaborator', 'CollaboratorController');
 
 Route::resource('typePhone', 'TypePhoneController');
-Route::resource('collaborator', 'CollaboratorController');
 Route::resource('phone', 'PhoneController');
 
 Route::get('home', function () {

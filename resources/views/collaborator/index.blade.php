@@ -10,7 +10,7 @@
         </a>
     </div>
     <br />
-    <form class="form form-inline" action="{{-- {{ route('collaborator.search') }} --}}" method="POST">
+    <form class="form form-inline" action="{{ route('collaborator.search') }}" method="POST">
         @csrf
         <div>
             <input class="form-control" type="text" name="filter" id="" value="{{ $filters['filter'] ?? '' }}">

@@ -120,13 +120,20 @@ class OfficeController extends Controller
             ->with('success', 'Cargo: "' . $office->description . '" deletado com sucesso!');
     }
 
+    /**
+     * Search by filter.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function search(Request $request)
     {
+        $filters = $request->except('_token');
         $offices = $this->office->search($request->filter);
 
         return view('office.index', [
             'offices' => $offices,
-            'filters' => $request->filter,
+            'filters' => $filters,
         ]);
     }
 }
