@@ -20543,7 +20543,7 @@ function clearMessages(element) {
         eventClick: this.onEventClick,
         eventResize: this.onEventResize,
         select: this.onSelect,
-        events: routeEvents('routeEventIndex')
+        events: routeEvents('routeScheduleIndex')
       },
       currentEvents: []
     };
@@ -20556,18 +20556,18 @@ function clearMessages(element) {
       console.log(element);
       /* clearMessages('#message');
       resetForm('#update');
-        $("#modalUpdate").modal('show');
+       $("#modalUpdate").modal('show');
       $("#modalUpdate #titleModal").text('Alterar Evento');
       $("#modalUpdate buttom.deleteEvent").css('display', 'flex');
-        let cli_id = element.event.extendedProps.cli_id;
+       let cli_id = element.event.extendedProps.cli_id;
       $("#modalUpdate select[name='cli_id']").val(cli_id);
-        let tatu_id = element.event.extendedProps.tatu_id;
+       let tatu_id = element.event.extendedProps.tatu_id;
       $("#modalUpdate select[name='tatu_id']").val(tatu_id);
-        let title = element.event.title;
+       let title = element.event.title;
       $("#modalUpdate input[name='title']").val(title);
-        let start = moment(element.event.start).format("YYYY-MM-DD\THH:mm:ss");
+       let start = moment(element.event.start).format("YYYY-MM-DD\THH:mm:ss");
       $("#modalUpdate input[name='start']").val(start);
-        let end = moment(element.event.end).format("YYYY-MM-DD\THH:mm:ss");
+       let end = moment(element.event.end).format("YYYY-MM-DD\THH:mm:ss");
       $("#modalUpdate input[name='end']").val(end); */
 
       /* let color = element.event.backgroundColor;
@@ -90657,8 +90657,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\Sys_CST\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\Sys_CST\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Faculdade\TCC\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Faculdade\TCC\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

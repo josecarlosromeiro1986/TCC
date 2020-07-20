@@ -24,6 +24,7 @@ Route::resource('client', 'ClientController');
 Route::resource('typePhone', 'TypePhoneController');
 Route::resource('phone', 'PhoneController');
 Route::resource('attendance', 'AttendanceController');
+Route::resource('schedule', 'ScheduleController');
 
 Route::get('home', function () {
     return view('index');

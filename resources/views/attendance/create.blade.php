@@ -26,7 +26,7 @@
             </div>
         </div>
     </form>
-    <div id="app">
+    <div id="app" data-route-schedule-index="{{ route('schedule.index') }}">
         <calendar-component></calendar-component>
     </div>
     @include('includes.modal')

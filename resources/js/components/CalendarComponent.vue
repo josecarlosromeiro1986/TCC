@@ -53,7 +53,7 @@ export default {
                 eventClick: this.onEventClick,
                 eventResize: this.onEventResize,
                 select: this.onSelect,
-                events: routeEvents('routeEventIndex'),
+                events: routeEvents('routeScheduleIndex'),
             },
             currentEvents: []
         }
