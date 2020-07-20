@@ -9,6 +9,7 @@
     <!-- Place your kit's code here -->
     <script src="https://kit.fontawesome.com/662f82abf9.js" crossorigin="anonymous" SameSite="none"></script>
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <title>@yield('title')</title>
 </head>
@@ -126,9 +127,11 @@
             @yield('content')
         </div>
     </div>
-    <script src="{{ asset('js/jquery.js')}} "></script>
+    <div id="app">
+        <empty-component></empty-component>
+    </div>
+    <script src="{{ asset('js/app.js')}} "></script>
     <script src="{{ asset('js/mask.js')}} "></script>
-    <script src="{{ asset('js/bootstrap.js')}} "></script>
     <script src="{{ asset('js/custom.js')}} "></script>
 </body>
 

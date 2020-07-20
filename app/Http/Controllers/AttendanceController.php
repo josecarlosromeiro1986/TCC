@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Attendance;
 use App\Client;
+use App\Collaborator;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -45,7 +46,20 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        return view('attendance.create');
+        $clients = Client::select('id', 'name')
+            ->where([
+                ['active', '=', 'Y'],
+            ])->get();
+
+        $collaborators = Collaborator::select('id', 'name')
+            ->where([
+                ['active', '=', 'Y'],
+            ])->get();
+
+        return view('attendance.create', [
+            'clients' => $clients,
+            'collaborators' => $collaborators,
+        ]);
     }
 
     /**
@@ -56,7 +70,7 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
