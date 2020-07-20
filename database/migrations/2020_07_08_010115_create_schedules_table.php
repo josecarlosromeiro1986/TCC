@@ -16,9 +16,9 @@ class CreateSchedulesTable extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('attendance_id')->constrained('attendances');
+            $table->string('title');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->enum('active', ['Y', 'N'])->default('Y');
             $table->timestamps();
         });
     }

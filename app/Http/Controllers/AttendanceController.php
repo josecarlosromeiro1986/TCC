@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
+use App\Client;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
+    private $attendance;
+
+    public function __construct(Attendance $attendance)
+    {
+        $this->attendance = $attendance;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,20 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        //
+        $attendances = $this->attendance
+            ->join('clients', 'attendances.client_id', '=', 'clients.id')
+            ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+            ->select(
+                'attendances.*',
+                'clients.name AS client',
+                'collaborators.name AS collaborator',
+            )
+            ->paginate(5)
+            ->onEachSide(0);
+
+        return view('attendance.index', [
+            'attendances' => $attendances,
+        ]);
     }
 
     /**
@@ -24,7 +45,7 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        //
+        return view('attendance.create');
     }
 
     /**
