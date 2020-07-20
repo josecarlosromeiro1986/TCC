@@ -91,7 +91,7 @@
                 </a>
             </li>
             <li class="nav-item item-lateral-menu">
-                <a class="nav-link link-lateral-menu @yield('activeAtt')" href="#section3" id="3">
+                <a class="nav-link link-lateral-menu @yield('activeAtt')" href="{{ route('attendance.index') }}">
                     <i class="fas fa-clipboard-list"></i>&nbspAtendimentos
                 </a>
             </li>
