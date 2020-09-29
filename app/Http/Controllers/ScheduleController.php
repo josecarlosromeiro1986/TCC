@@ -14,7 +14,8 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $schedules = Schedule::all();
+        return response()->json($schedules);
     }
 
     /**

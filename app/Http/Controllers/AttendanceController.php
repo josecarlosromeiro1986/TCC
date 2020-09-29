@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Attendance;
 use App\Client;
+use App\Collaborator;
+use App\Schedule;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -45,7 +47,20 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        return view('attendance.create');
+        $clients = Client::select('id', 'name')
+            ->where([
+                ['active', '=', 'Y'],
+            ])->get();
+
+        $collaborators = Collaborator::select('id', 'name')
+            ->where([
+                ['active', '=', 'Y'],
+            ])->get();
+
+        return view('attendance.create', [
+            'clients' => $clients,
+            'collaborators' => $collaborators,
+        ]);
     }
 
     /**
@@ -56,7 +71,21 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attendance = $this->attendance->create([
+            'client_id' => $request->client_id,
+            'collaborator_id' => $request->collaborator_id,
+        ]);
+
+        $schedule = new Schedule;
+        $schedule->attendance_id = $attendance->id;
+        $schedule->title = $request->title;
+        $schedule->start = $request->start;
+        $schedule->end = $request->end;
+        $schedule->save();
+
+        return redirect()
+            ->route('attendance.index')
+            ->with('success', 'Attendimento: "' . $attendance->id . '" Adicionado com sucesso!');
     }
 
     /**

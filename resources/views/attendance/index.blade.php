@@ -1,7 +1,7 @@
 @extends('index')
 @section('title', 'Atendimentos')
 @section('activeAtt', 'activeElement')
-@section('content')    
+@section('content')
     <div class="center-content">
         <h5 class="display-4 text-center">Atendimentos</h5>
         <a href="{{ route('attendance.create') }}" class="btn btn-cst btn-block shadow" role="button" aria-pressed="true">
@@ -38,12 +38,6 @@
                         <td>{{ $attendance->collaborator }}</td>
                         <td class="not-mobile">{{ $attendance->client }}</td>
                         <td class="text-center not-mobile">
-                            <a class="btn btn-info" href="{{ route('attendance.edit', $attendance) }}" role="button">
-                                <i class="fas fa-pencil-alt"></i>&nbspEditar
-                            </a>
-                            <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $attendance->id) }}" role="button">
-                                <i class="fas fa-pencil-alt"></i>&nbspExcluir
-                            </a>
                             <a class="btn btn-cst" href="{{ route('attendance.show', $attendance) }}" role="button">
                                 <i class="far fa-id-card"></i>&nbspDetalhes
                             </a>
@@ -108,5 +102,5 @@
 
     <div class="center-content">
         <a href="{{ route('home') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
-    </div>    
+    </div>
 @endsection
