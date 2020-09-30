@@ -24,7 +24,11 @@ Route::resource('client', 'ClientController');
 Route::resource('typePhone', 'TypePhoneController');
 Route::resource('phone', 'PhoneController');
 Route::resource('attendance', 'AttendanceController');
-Route::resource('schedule', 'ScheduleController');
+
+Route::get('schedule', 'ScheduleController@index')->name('schedule.index');
+Route::put('schedule/up', 'ScheduleController@update')->name('schedule.update');
+Route::any('schedule/search', 'ScheduleController@search')->name('schedule.search');
+Route::any('schedule/collaborator', 'ScheduleController@collaborator')->name('schedule.collaborator');
 
 Route::get('home', function () {
     return view('index');

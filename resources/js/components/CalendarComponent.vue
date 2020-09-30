@@ -23,6 +23,9 @@ function clearMessages(element) {
     $(element).text('');
 };
 
+var route = routeEvents('routeScheduleIndex');
+console.log(route);
+
 export default {
     components: {
         FullCalendar // make the <FullCalendar> tag available
@@ -53,7 +56,7 @@ export default {
                 eventClick: this.onEventClick,
                 eventResize: this.onEventResize,
                 select: this.onSelect,
-                events: routeEvents('routeScheduleIndex'),
+                events: route,
             },
             currentEvents: []
         }
@@ -61,40 +64,64 @@ export default {
 
     methods: {
         onEventDrop(element) {
-            alert('drop');
+            console.log(element);
+            clearMessages('#message');
+            resetForm('#attendanceUpForm');
+            $("#attendanceUp").modal('show');
+            $("#attendanceUp #titleModal").text('Editar Atendimento Nº ' + element.event.extendedProps.attendance_id);
+            $("#attendanceUp #client").text(element.event.extendedProps.client);
+            $("#attendanceUp #collaborator").text(element.event.extendedProps.collaborator);
+            $("#attendanceUp input[name='client_id']").val(element.event.extendedProps.client_id);
+            $("#attendanceUp input[name='collaborator_id']").val(element.event.extendedProps.collaborator_id);
+            $("#attendanceUp input[name='attendance_id']").val(element.event.extendedProps.attendance_id);
+            $("#attendanceUp input[name='schedule_id']").val(element.event.id);
+            $("#attendanceUp input[name='title']").val(element.event.title);
+
+            let start = moment(element.event.start).format("YYYY-MM-DD\THH:mm:ss");
+            $("#attendanceUp input[name='start']").val(start);
+
+            let end = moment(element.event.end).format("YYYY-MM-DD\THH:mm:ss");
+            $("#attendanceUp input[name='end']").val(end);
         },
         onEventClick(element) {
             console.log(element);
-            /* clearMessages('#message');
-            resetForm('#update');
-
-            $("#modalUpdate").modal('show');
-            $("#modalUpdate #titleModal").text('Alterar Evento');
-            $("#modalUpdate buttom.deleteEvent").css('display', 'flex');
-
-            let cli_id = element.event.extendedProps.cli_id;
-            $("#modalUpdate select[name='cli_id']").val(cli_id);
-
-            let tatu_id = element.event.extendedProps.tatu_id;
-            $("#modalUpdate select[name='tatu_id']").val(tatu_id);
-
-            let title = element.event.title;
-            $("#modalUpdate input[name='title']").val(title);
+            clearMessages('#message');
+            resetForm('#attendanceUpForm');
+            $("#attendanceUp").modal('show');
+            $("#attendanceUp #titleModal").text('Editar Atendimento Nº ' + element.event.extendedProps.attendance_id);
+            $("#attendanceUp #client").text(element.event.extendedProps.client);
+            $("#attendanceUp #collaborator").text(element.event.extendedProps.collaborator);
+            $("#attendanceUp input[name='client_id']").val(element.event.extendedProps.client_id);
+            $("#attendanceUp input[name='collaborator_id']").val(element.event.extendedProps.collaborator_id);
+            $("#attendanceUp input[name='attendance_id']").val(element.event.extendedProps.attendance_id);
+            $("#attendanceUp input[name='schedule_id']").val(element.event.id);
+            $("#attendanceUp input[name='title']").val(element.event.title);
 
             let start = moment(element.event.start).format("YYYY-MM-DD\THH:mm:ss");
-            $("#modalUpdate input[name='start']").val(start);
+            $("#attendanceUp input[name='start']").val(start);
 
             let end = moment(element.event.end).format("YYYY-MM-DD\THH:mm:ss");
-            $("#modalUpdate input[name='end']").val(end); */
-
-            /* let color = element.event.backgroundColor;
-            $("#modalUpdate input[name='color']").val(color); */
-
-            /* let note = element.event.extendedProps.note;
-            $("#modalUpdate textarea[name='note']").val(note); */
+            $("#attendanceUp input[name='end']").val(end);
         },
         onEventResize(element) {
-            alert('dResizerop');
+            console.log(element);
+            clearMessages('#message');
+            resetForm('#attendanceUpForm');
+            $("#attendanceUp").modal('show');
+            $("#attendanceUp #titleModal").text('Editar Atendimento Nº ' + element.event.extendedProps.attendance_id);
+            $("#attendanceUp #client").text(element.event.extendedProps.client);
+            $("#attendanceUp #collaborator").text(element.event.extendedProps.collaborator);
+            $("#attendanceUp input[name='client_id']").val(element.event.extendedProps.client_id);
+            $("#attendanceUp input[name='collaborator_id']").val(element.event.extendedProps.collaborator_id);
+            $("#attendanceUp input[name='attendance_id']").val(element.event.extendedProps.attendance_id);
+            $("#attendanceUp input[name='schedule_id']").val(element.event.id);
+            $("#attendanceUp input[name='title']").val(element.event.title);
+
+            let start = moment(element.event.start).format("YYYY-MM-DD\THH:mm:ss");
+            $("#attendanceUp input[name='start']").val(start);
+
+            let end = moment(element.event.end).format("YYYY-MM-DD\THH:mm:ss");
+            $("#attendanceUp input[name='end']").val(end);
         },
         onSelect(element) {
             console.log(element);
@@ -102,18 +129,6 @@ export default {
             resetForm('#attendanceForm');
             $("#attendance").modal('show');
             $("#attendance #titleModal").text('Adicionar Atendimento');
-            $("#attendance #client").text($("#client_id option:selected").text());
-            $("#attendance #collaborator").text($("#collaborator_id option:selected").text());
-            $("#attendance button.deleteEvent").css('display', 'none');
-
-            let client_id = $("#client_id option:selected").val();
-            $("#attendance input[name='client_id']").val(client_id);
-
-            let collaborator_id = $("#collaborator_id option:selected").val();
-            $("#attendance input[name='collaborator_id']").val(collaborator_id);
-
-            let title = $("#collaborator_id option:selected").text();
-            $("#attendance input[name='title']").val(title);
 
             let start = moment(element.start).format("YYYY-MM-DD\THH:mm:ss");
             $("#attendance input[name='start']").val(start);

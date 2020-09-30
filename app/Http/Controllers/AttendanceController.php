@@ -71,6 +71,8 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
+        $collaborator = Collaborator::where('id', $request->collaborator_id)->first();
+
         $attendance = $this->attendance->create([
             'client_id' => $request->client_id,
             'collaborator_id' => $request->collaborator_id,
@@ -78,7 +80,7 @@ class AttendanceController extends Controller
 
         $schedule = new Schedule;
         $schedule->attendance_id = $attendance->id;
-        $schedule->title = $request->title;
+        $schedule->title = $collaborator->name;
         $schedule->start = $request->start;
         $schedule->end = $request->end;
         $schedule->save();
