@@ -23,6 +23,31 @@ function clearMessages(element) {
     $(element).text('');
 };
 
+function update(element) {
+    console.log(element);
+    let start = moment(element.event.start).format("YYYY-MM-DD\THH:mm:ss");
+    let end = moment(element.event.end).format("YYYY-MM-DD\THH:mm:ss");
+    let curdate = moment(new Date()).format("YYYY-MM-DD\THH:mm:ss");
+    if (curdate > start || curdate > end){
+        alert('Não é possível criar um atendimento de forma retroativa');
+        window.location.reload();
+        return;
+    }
+    clearMessages('#message');
+    resetForm('#attendanceUpForm');
+    $("#attendanceUp").modal('show');
+    $("#attendanceUp #titleModal").text('Editar Atendimento Nº ' + element.event.extendedProps.attendance_id);
+    $("#attendanceUp #client").text(element.event.extendedProps.client);
+    $("#attendanceUp #collaborator").text(element.event.extendedProps.collaborator);
+    $("#attendanceUp input[name='client_id']").val(element.event.extendedProps.client_id);
+    $("#attendanceUp input[name='collaborator_id']").val(element.event.extendedProps.collaborator_id);
+    $("#attendanceUp input[name='attendance_id']").val(element.event.extendedProps.attendance_id);
+    $("#attendanceUp input[name='schedule_id']").val(element.event.id);
+    $("#attendanceUp input[name='title']").val(element.event.title);
+    $("#attendanceUp input[name='start']").val(start);
+    $("#attendanceUp input[name='end']").val(end);
+}
+
 var route = routeEvents('routeScheduleIndex');
 console.log(route);
 
@@ -47,6 +72,9 @@ export default {
                 initialView: 'timeGridWeek',
                 locales: allLocales,
                 locale: 'pt-br',
+                slotDuration: '00:10:00',
+                slotMinTime: '08:00:00',
+                slotMaxTime: '22:00:00',
                 navLinks: true,
                 eventLimit: true,
                 selectable: true,
@@ -64,76 +92,29 @@ export default {
 
     methods: {
         onEventDrop(element) {
-            console.log(element);
-            clearMessages('#message');
-            resetForm('#attendanceUpForm');
-            $("#attendanceUp").modal('show');
-            $("#attendanceUp #titleModal").text('Editar Atendimento Nº ' + element.event.extendedProps.attendance_id);
-            $("#attendanceUp #client").text(element.event.extendedProps.client);
-            $("#attendanceUp #collaborator").text(element.event.extendedProps.collaborator);
-            $("#attendanceUp input[name='client_id']").val(element.event.extendedProps.client_id);
-            $("#attendanceUp input[name='collaborator_id']").val(element.event.extendedProps.collaborator_id);
-            $("#attendanceUp input[name='attendance_id']").val(element.event.extendedProps.attendance_id);
-            $("#attendanceUp input[name='schedule_id']").val(element.event.id);
-            $("#attendanceUp input[name='title']").val(element.event.title);
-
-            let start = moment(element.event.start).format("YYYY-MM-DD\THH:mm:ss");
-            $("#attendanceUp input[name='start']").val(start);
-
-            let end = moment(element.event.end).format("YYYY-MM-DD\THH:mm:ss");
-            $("#attendanceUp input[name='end']").val(end);
+            update(element);
         },
         onEventClick(element) {
-            console.log(element);
-            clearMessages('#message');
-            resetForm('#attendanceUpForm');
-            $("#attendanceUp").modal('show');
-            $("#attendanceUp #titleModal").text('Editar Atendimento Nº ' + element.event.extendedProps.attendance_id);
-            $("#attendanceUp #client").text(element.event.extendedProps.client);
-            $("#attendanceUp #collaborator").text(element.event.extendedProps.collaborator);
-            $("#attendanceUp input[name='client_id']").val(element.event.extendedProps.client_id);
-            $("#attendanceUp input[name='collaborator_id']").val(element.event.extendedProps.collaborator_id);
-            $("#attendanceUp input[name='attendance_id']").val(element.event.extendedProps.attendance_id);
-            $("#attendanceUp input[name='schedule_id']").val(element.event.id);
-            $("#attendanceUp input[name='title']").val(element.event.title);
-
-            let start = moment(element.event.start).format("YYYY-MM-DD\THH:mm:ss");
-            $("#attendanceUp input[name='start']").val(start);
-
-            let end = moment(element.event.end).format("YYYY-MM-DD\THH:mm:ss");
-            $("#attendanceUp input[name='end']").val(end);
+            update(element);
         },
         onEventResize(element) {
-            console.log(element);
-            clearMessages('#message');
-            resetForm('#attendanceUpForm');
-            $("#attendanceUp").modal('show');
-            $("#attendanceUp #titleModal").text('Editar Atendimento Nº ' + element.event.extendedProps.attendance_id);
-            $("#attendanceUp #client").text(element.event.extendedProps.client);
-            $("#attendanceUp #collaborator").text(element.event.extendedProps.collaborator);
-            $("#attendanceUp input[name='client_id']").val(element.event.extendedProps.client_id);
-            $("#attendanceUp input[name='collaborator_id']").val(element.event.extendedProps.collaborator_id);
-            $("#attendanceUp input[name='attendance_id']").val(element.event.extendedProps.attendance_id);
-            $("#attendanceUp input[name='schedule_id']").val(element.event.id);
-            $("#attendanceUp input[name='title']").val(element.event.title);
-
-            let start = moment(element.event.start).format("YYYY-MM-DD\THH:mm:ss");
-            $("#attendanceUp input[name='start']").val(start);
-
-            let end = moment(element.event.end).format("YYYY-MM-DD\THH:mm:ss");
-            $("#attendanceUp input[name='end']").val(end);
+            update(element);
         },
         onSelect(element) {
             console.log(element);
+            let start = moment(element.start).format("YYYY-MM-DD\THH:mm:ss");
+            let end = moment(element.end).format("YYYY-MM-DD\THH:mm:ss");
+            let curdate = moment(new Date()).format("YYYY-MM-DD\THH:mm:ss");
+            if (curdate > start || curdate > end){
+                alert('Não é possível criar um atendimento de forma retroativa');
+                window.location.reload();
+                return;
+            }
             clearMessages('#message');
             resetForm('#attendanceForm');
             $("#attendance").modal('show');
             $("#attendance #titleModal").text('Adicionar Atendimento');
-
-            let start = moment(element.start).format("YYYY-MM-DD\THH:mm:ss");
             $("#attendance input[name='start']").val(start);
-
-            let end = moment(element.end).format("YYYY-MM-DD\THH:mm:ss");
             $("#attendance input[name='end']").val(end);
         },
     }
