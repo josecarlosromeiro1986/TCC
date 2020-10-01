@@ -13,6 +13,7 @@
                             <strong>Cliente</strong>
                             <p id="client">{{ $data['client_name'] }}</p>
                             <input type="hidden" class="form-control shadow-sm" name="client_id" id="client_id" value="{{ $data['client_id'] }}" >
+                            <input type="hidden" class="form-control shadow-sm" name="client_name" id="client_name" value="{{ $data['client_name'] }}" >
                             <div class="invalid-feedback">
                                 O Cliente é Obrigatório!
                             </div>
@@ -50,7 +51,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-cst btn-primary">Salvar</button>
-                    <button type="button" onclick="window.location.reload();" class="btn btn-secondary">Fechar</button>
+                    <button type="button" onclick="window.location.reload();" class="btn btn-secondary">Cancelar</button>
                 </div>
             </form>
         </div>
@@ -112,7 +113,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-cst btn-primary">Salvar</button>
-                    <button type="button" onclick="window.location.reload();" class="btn btn-secondary">Fechar</button>
+                    <button type="button" onclick="window.location.reload();" class="btn btn-secondary">Cancelar</button>
                     <button type="button" class="btn btn-danger">Excluir</button>
                 </div>
             </form>

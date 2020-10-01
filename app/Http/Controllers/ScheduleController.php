@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Attendance;
 use App\Client;
 use App\Collaborator;
+use App\Http\Requests\ScheduleRequest;
 use App\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use stdClass;
 
 class ScheduleController extends Controller
@@ -85,12 +87,48 @@ class ScheduleController extends Controller
      * @param  \App\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(ScheduleRequest $request)
     {
+        /* DB::enableQueryLog();
+        dd(DB::getQueryLog()); */
+
+        $schedules = DB::select("SELECT
+                                        sc.*
+                                    FROM
+                                        schedules sc
+                                        INNER JOIN attendances att
+                                        ON att.id = sc.attendance_id
+                                    WHERE att.collaborator_id = :collaborator
+                                        AND sc.id <> :schedule
+                                        AND :date BETWEEN sc.start
+                                        AND sc.end", ['date' => $request->start, 'collaborator' => $request->collaborator_id, 'schedule' => $request->schedule_id]);
+
+        if (count($schedules) > 0) {
+            return back()->withInput()
+                ->with('error', 'Já existe um atendimento com está data!');
+        }
+
+        $schedules = DB::select("SELECT
+                                        sc.*
+                                    FROM
+                                        schedules sc
+                                        INNER JOIN attendances att
+                                        ON att.id = sc.attendance_id
+                                    WHERE att.collaborator_id = :collaborator
+                                        AND sc.id <> :schedule
+                                        AND :date BETWEEN sc.start
+                                        AND sc.end", ['date' => $request->end, 'collaborator' => $request->collaborator_id, 'schedule' => $request->schedule_id]);
+
+        if (count($schedules) > 0) {
+            return back()->withInput()
+                ->with('error', 'Já existe um atendimento com está data!');
+        }
+
         /*  Attendance::where('id', $request->attendance_id)
             ->update([
                 'note' => $request->note
             ]); */
+
 
         $this->schedule->where('id', $request->schedule_id)
             ->update(
@@ -101,9 +139,8 @@ class ScheduleController extends Controller
                 )
             );
 
-        return redirect()
-            ->route('attendance.index')
-            ->with('success', 'Atendimento Nº ' . $request->attendance_id . ' Editado com sucesso!');
+        return back()->withInput()
+            ->with('success', 'Attendimento: "' . $request->attendance_id . '" Atualizado com sucesso!');
     }
 
     /**

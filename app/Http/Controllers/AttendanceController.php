@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Attendance;
 use App\Client;
 use App\Collaborator;
+use App\Http\Requests\ScheduleRequest;
 use App\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
@@ -69,8 +71,38 @@ class AttendanceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ScheduleRequest $request)
     {
+        $schedules = DB::select("SELECT
+                                        sc.*
+                                    FROM
+                                        schedules sc
+                                        INNER JOIN attendances att
+                                        ON att.id = sc.attendance_id
+                                    WHERE att.collaborator_id = :collaborator
+                                        AND :date BETWEEN sc.start
+                                        AND sc.end", ['date' => $request->start, 'collaborator' => $request->collaborator_id]);
+
+        if (count($schedules) > 0) {
+            return back()->withInput()
+                ->with('error', 'Já existe um atendimento com está data!');
+        }
+
+        $schedules = DB::select("SELECT
+                                        sc.*
+                                    FROM
+                                        schedules sc
+                                        INNER JOIN attendances att
+                                        ON att.id = sc.attendance_id
+                                    WHERE att.collaborator_id = :collaborator
+                                        AND :date BETWEEN sc.start
+                                        AND sc.end", ['date' => $request->end, 'collaborator' => $request->collaborator_id]);
+
+        if (count($schedules) > 0) {
+            return back()->withInput()
+                ->with('error', 'Já existe um atendimento com está data!');
+        }
+
         $collaborator = Collaborator::where('id', $request->collaborator_id)->first();
 
         $attendance = $this->attendance->create([
@@ -80,13 +112,12 @@ class AttendanceController extends Controller
 
         $schedule = new Schedule;
         $schedule->attendance_id = $attendance->id;
-        $schedule->title = $collaborator->name;
+        $schedule->title = $request->client_name;
         $schedule->start = $request->start;
         $schedule->end = $request->end;
         $schedule->save();
 
-        return redirect()
-            ->route('attendance.index')
+        return back()->withInput()
             ->with('success', 'Attendimento: "' . $attendance->id . '" Adicionado com sucesso!');
     }
 
