@@ -17,6 +17,7 @@ class CreateAttendancesTable extends Migration
             $table->id();
             $table->foreignId('collaborator_id')->constrained('collaborators');
             $table->foreignId('client_id')->constrained('clients');
+            $table->mediumText('note')->nullable();
             $table->enum('status', ['WAIT', 'STARTED', 'FINISHED'])->default('WAIT');
             $table->timestamps();
         });

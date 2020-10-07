@@ -114,7 +114,6 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-cst btn-primary">Salvar</button>
                     <button type="button" onclick="window.location.reload();" class="btn btn-secondary">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Excluir</button>
                 </div>
             </form>
         </div>
