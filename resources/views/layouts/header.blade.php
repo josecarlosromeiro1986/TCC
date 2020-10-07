@@ -92,7 +92,7 @@
                 </a>
             </li>
             <li class="nav-item item-lateral-menu">
-                <a class="nav-link link-lateral-menu @yield('activeAtt')" href="{{ route('attendance.create') }}">
+                <a class="nav-link link-lateral-menu @yield('activeCreateAtt')" href="{{ route('attendance.create') }}">
                     <i class="fas fa-clipboard-list"></i>&nbspNovo Atendimentos
                 </a>
             </li>
@@ -102,7 +102,7 @@
                 </a>
             </li>
             <li class="nav-item item-lateral-menu">
-                <a class="nav-link link-lateral-menu @yield('activeSch')" href="#section4" id="4">
+                <a class="nav-link link-lateral-menu @yield('activeSch')" href="{{ route('collaborators') }}">
                     <i class="far fa-calendar-alt"></i>&nbspAgenda
                 </a>
             </li>
@@ -131,9 +131,6 @@
         <div class="container">
             @yield('content')
         </div>
-    </div>
-    <div id="app">
-        <empty-component></empty-component>
     </div>
     <script src="{{ asset('js/app.js')}} "></script>
     <script src="{{ asset('js/mask.js')}} "></script>

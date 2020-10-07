@@ -83,7 +83,6 @@ export default {
                 eventDrop: this.onEventDrop,
                 eventClick: this.onEventClick,
                 eventResize: this.onEventResize,
-                select: this.onSelect,
                 events: route,
             },
             currentEvents: []
@@ -99,24 +98,7 @@ export default {
         },
         onEventResize(element) {
             update(element);
-        },
-        onSelect(element) {
-            console.log(element);
-            let start = moment(element.start).format("YYYY-MM-DD\THH:mm:ss");
-            let end = moment(element.end).format("YYYY-MM-DD\THH:mm:ss");
-            let curdate = moment(new Date()).format("YYYY-MM-DD\THH:mm:ss");
-            if (curdate > start || curdate > end){
-                alert('Não é possível criar um atendimento de forma retroativa');
-                window.location.reload();
-                return;
-            }
-            clearMessages('#message');
-            resetForm('#attendanceForm');
-            $("#attendance").modal('show');
-            $("#attendance #titleModal").text('Adicionar Atendimento');
-            $("#attendance input[name='start']").val(start);
-            $("#attendance input[name='end']").val(end);
-        },
+        }
     }
 }
 </script>

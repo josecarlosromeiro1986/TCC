@@ -28,12 +28,13 @@ class ScheduleController extends Controller
             ->join('clients', 'clients.id', '=', 'attendances.client_id')
             ->select(
                 'schedules.*',
-                'attendances.collaborator_id',
                 'collaborators.name AS collaborator',
+                'clients.name AS client',
                 'attendances.client_id',
-                'clients.name AS client'
+                'attendances.collaborator_id',
+                'attendances.note',
             )
-            ->paginate();
+            ->get();
         return response()->json($schedules);
     }
 
@@ -124,11 +125,10 @@ class ScheduleController extends Controller
                 ->with('error', 'Já existe um atendimento com está data!');
         }
 
-        /*  Attendance::where('id', $request->attendance_id)
+        Attendance::where('id', $request->attendance_id)
             ->update([
                 'note' => $request->note
-            ]); */
-
+            ]);
 
         $this->schedule->where('id', $request->schedule_id)
             ->update(
@@ -149,9 +149,9 @@ class ScheduleController extends Controller
      * @param  \App\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Schedule $schedule)
+    public function destroy(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     public function search(Request $request)
@@ -163,10 +163,11 @@ class ScheduleController extends Controller
             ->join('clients', 'clients.id', '=', 'attendances.client_id')
             ->select(
                 'schedules.*',
-                'attendances.collaborator_id',
                 'collaborators.name AS collaborator',
+                'clients.name AS client',
                 'attendances.client_id',
-                'clients.name AS client'
+                'attendances.collaborator_id',
+                'attendances.note',
             )
             ->get();
         return response()->json($schedules);
@@ -174,13 +175,26 @@ class ScheduleController extends Controller
 
     public function collaborator(Request $request)
     {
-        $collaborator = Collaborator::where('id', $request->collaborator_id)->first();
-        $client = Client::where('id', $request->client_id)->first();
+        if (isset($request->client_id)) {
 
-        $data['client_id'] = $client->id;
-        $data['client_name'] = $client->name;
-        $data['collaborator_id'] = $collaborator->id;
-        $data['collaborator_name'] = $collaborator->name;
+            $collaborator = Collaborator::where('id', $request->collaborator_id)->first();
+            $client = Client::where('id', $request->client_id)->first();
+
+            $data['client_id'] = $client->id;
+            $data['client_name'] = $client->name;
+            $data['collaborator_id'] = $collaborator->id;
+            $data['collaborator_name'] = $collaborator->name;
+        } else {
+
+            $collaborator = Collaborator::where('id', $request->collaborator_id)->first();
+
+            $data['collaborator_id'] = $collaborator->id;
+            $data['collaborator_name'] = $collaborator->name;
+
+            return view('schedule.schedule', [
+                'data' => $data,
+            ]);
+        }
 
         return view('attendance.schedule', [
             'data' => $data,

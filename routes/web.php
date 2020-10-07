@@ -16,6 +16,7 @@ Route::any('office/search', 'OfficeController@search')->name('office.search');
 Route::resource('office', 'OfficeController');
 
 Route::any('collaborator/search', 'CollaboratorController@search')->name('collaborator.search');
+Route::any('collaborators', 'CollaboratorController@collaborators')->name('collaborators');
 Route::resource('collaborator', 'CollaboratorController');
 
 Route::any('client/search', 'ClientController@search')->name('client.search');
@@ -23,6 +24,8 @@ Route::resource('client', 'ClientController');
 
 Route::resource('typePhone', 'TypePhoneController');
 Route::resource('phone', 'PhoneController');
+
+Route::any('attendance/status', 'AttendanceController@status')->name('attendance.status');
 Route::resource('attendance', 'AttendanceController');
 
 Route::get('schedule', 'ScheduleController@index')->name('schedule.index');

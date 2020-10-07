@@ -29,14 +29,17 @@ class AttendanceController extends Controller
         $attendances = $this->attendance
             ->join('clients', 'attendances.client_id', '=', 'clients.id')
             ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+            ->join('schedules', 'schedules.attendance_id', '=', 'attendances.id')
             ->select(
                 'attendances.*',
                 'clients.name AS client',
                 'collaborators.name AS collaborator',
+                'schedules.start'
             )
+            ->orderBy('schedules.start', 'asc')
             ->paginate(5)
             ->onEachSide(0);
-
+        // dd($attendances);
         return view('attendance.index', [
             'attendances' => $attendances,
         ]);
@@ -108,11 +111,12 @@ class AttendanceController extends Controller
         $attendance = $this->attendance->create([
             'client_id' => $request->client_id,
             'collaborator_id' => $request->collaborator_id,
+            'note' => $request->note,
         ]);
 
         $schedule = new Schedule;
         $schedule->attendance_id = $attendance->id;
-        $schedule->title = $request->client_name;
+        $schedule->title = $collaborator->name . " - " . $request->client_name;
         $schedule->start = $request->start;
         $schedule->end = $request->end;
         $schedule->save();
@@ -129,7 +133,28 @@ class AttendanceController extends Controller
      */
     public function show(Attendance $attendance)
     {
-        //
+        $attendance = $this->attendance
+            ->where([
+                ['attendances.id', '=', $attendance->id]
+            ])
+            ->join('clients', 'attendances.client_id', '=', 'clients.id')
+            ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+            ->join('schedules', 'schedules.attendance_id', '=', 'attendances.id')
+            ->select(
+                'attendances.*',
+                'clients.name AS client',
+                'collaborators.name AS collaborator',
+                'schedules.start',
+                'schedules.end'
+            )
+            ->orderBy('schedules.start', 'asc')
+            ->first();
+
+        //dd($attendance);
+
+        return view('attendance.show', [
+            'attendance' => $attendance
+        ]);
     }
 
     /**
@@ -152,7 +177,17 @@ class AttendanceController extends Controller
      */
     public function update(Request $request, Attendance $attendance)
     {
-        //
+        //dd($request->all());
+        $attendance->update(
+            $request->except(
+                '_method',
+                '_token'
+            )
+        );
+
+        return redirect()
+            ->back()->withInput()
+            ->with('success', 'Atendimento: "' . $attendance->id . '" Editado com sucesso!');
     }
 
     /**
@@ -164,5 +199,40 @@ class AttendanceController extends Controller
     public function destroy(Attendance $attendance)
     {
         //
+    }
+
+    public function status(Request $request)
+    {
+        if ($request->attendance_status == 'STARTED') {
+
+            $this->attendance
+                ->where('id', '=', $request->attendance_id)
+                ->update([
+                    'status' => $request->attendance_status
+                ]);
+
+            return back()->withInput()
+                ->with('success', 'Attendimento: Iniciado com sucesso!');
+        }
+
+        if ($request->attendance_status == 'FINISHED') {
+
+            $this->attendance
+                ->where('id', '=', $request->attendance_id)
+                ->update([
+                    'status' => $request->attendance_status
+                ]);
+
+            Schedule::where('attendance_id', '=', $request->attendance_id)
+                ->update([
+                    'end' => date('Y-m-d H:m:s')
+                ]);
+
+            return back()->withInput()
+                ->with('success', 'Attendimento: Finalizado com sucesso!');
+        }
+
+        return back()->withInput()
+            ->with('error', 'Erro ao atualizar Atendimento');
     }
 }

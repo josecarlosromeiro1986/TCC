@@ -221,4 +221,15 @@ class CollaboratorController extends Controller
             'filters' => $filters,
         ]);
     }
+
+    public function collaborators()
+    {
+        $collaborators = $this->collaborator
+            ->select('id', 'name')
+            ->get();
+
+        return view('schedule.index', [
+            'collaborators' => $collaborators,
+        ]);
+    }
 }

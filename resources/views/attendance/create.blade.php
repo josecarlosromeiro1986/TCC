@@ -1,6 +1,6 @@
 @extends('index')
 @section('title', 'Novo Cliente')
-@section('activeAtt', 'activeElement')
+@section('activeCreateAtt', 'activeElement')
 @section('content')
     <div class="center-content">
         <h1 class="display-4 text-center">Novo Atendimento</h1>
