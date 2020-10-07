@@ -33,6 +33,9 @@ Route::put('schedule/up', 'ScheduleController@update')->name('schedule.update');
 Route::any('schedule/search', 'ScheduleController@search')->name('schedule.search');
 Route::any('schedule/collaborator', 'ScheduleController@collaborator')->name('schedule.collaborator');
 
+Route::get('reports/index', 'ReportsController@index')->name('reports.index');
+Route::get('reports/pdf', 'ReportsController@pdf')->name('reports.pdf');
+
 Route::get('home', function () {
     return view('index');
 })->name('home');

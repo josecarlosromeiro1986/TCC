@@ -112,8 +112,8 @@
                     <i class="far fa-file-alt"></i>&nbspRelatórios
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">
-                        <i class="far fa-chart-bar"></i>&nbspClientes
+                    <a class="dropdown-item" href="{{ route('reports.index') }}">
+                        <i class="far fa-chart-bar"></i>&nbspColaboradores
                     </a>
                     <a class="dropdown-item" href="#">
                         <i class="far fa-chart-bar"></i>&nbspAtendimentos
