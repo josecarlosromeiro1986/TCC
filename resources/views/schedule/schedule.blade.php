@@ -1,6 +1,6 @@
 @extends('index')
 @section('title', 'Novo Cliente')
-@section('activeCreateAtt', 'activeElement')
+@section('activeSch', 'activeElement')
 @section('content')
 @include('includes.alerts')
     <h1 class="display-4 text-center">Agenda do {{ $data['collaborator_name'] }}</h1>

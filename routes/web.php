@@ -33,8 +33,12 @@ Route::put('schedule/up', 'ScheduleController@update')->name('schedule.update');
 Route::any('schedule/search', 'ScheduleController@search')->name('schedule.search');
 Route::any('schedule/collaborator', 'ScheduleController@collaborator')->name('schedule.collaborator');
 
-Route::get('reports/index', 'ReportsController@index')->name('reports.index');
-Route::get('reports/pdf', 'ReportsController@pdf')->name('reports.pdf');
+Route::get('reports/collaborator', 'ReportsController@collaborator')->name('reports.collaborator');
+Route::get('reports/collaboratorPdf', 'ReportsController@collaboratorPdf')->name('reports.collaboratorPdf');
+Route::get('reports/client', 'ReportsController@client')->name('reports.client');
+Route::get('reports/clientPdf', 'ReportsController@clientPdf')->name('reports.clientPdf');
+Route::get('reports/attendance', 'ReportsController@attendance')->name('reports.attendance');
+Route::get('reports/attendancePdf', 'ReportsController@attendancePdf')->name('reports.attendancePdf');
 
 Route::get('home', function () {
     return view('index');

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Relação de Colaboradores</title>
+    <title>Relação de Clientes</title>
     <style>
         #customers {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -30,33 +30,29 @@
     </style>
 </head>
 <body>
-    <h3>Relação de Colaboradores</h3>
+    <h3>Relação de Clientes</h3>
     <table id="customers">
         <thead>
           <tr>
             <th style="width: 50px;">Ativo</th>
+            <th style="width: 50px;">Código</th>
             <th>Nome</th>
-            <th>Cargo</th>
-            <th style="width: 100px;">Data de Início</th>
-            <th style="width: 100px;">Data de Saída</th>
+            <th>CPF</th>
+            <th>Data de Nascimento</th>
           </tr>
         </thead>
         <tbody>
-            @foreach ($collaborators as $collaborator)
+            @foreach ($clients as $client)
                 <tr>
-                    @if ($collaborator->active == 'Y')
+                    @if ($client->active == 'Y')
                         <td style="text-align: center;">Sim</td>
                     @else
                         <td style="text-align: center;">Não</td>
                     @endif
-                    <td>{{ $collaborator->name }}</td>
-                    <td style="text-align: center;">{{ $collaborator->description }}</td>
-                    <td style="text-align: center;">{{ date('d/m/Y', strtotime($collaborator->start)) }}</td>
-                    @if (!is_null($collaborator->exit))
-                        <td style="text-align: center;">{{ date('d/m/Y', strtotime($collaborator->exit)) }}</td>
-                    @else
-                        <td style="text-align: center;">__/__/____</td>
-                    @endif
+                    <td style="text-align: center;">{{ $client->id }}</td>
+                    <td>{{ $client->name }}</td>
+                    <td style="text-align: center;">{{ $client->cpf }}</td>
+                    <td style="text-align: center;">{{ date('d/m/Y', strtotime($client->birth)) }}</td>
                 </tr>
             @endforeach
         </tbody>

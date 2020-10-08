@@ -6,20 +6,27 @@
         <h5 class="display-4 text-center">Atendimentos</h5>
     </div>
     <br />
-    <div>
-        <table class="table table-hover table-bordered">
-            <tr>
-                <td class="table-info">
-                    Esperando
-                </td>
-                <td class="table-warning">
-                    Iniciado
-                </td>
-                <td class="table-success">
-                    Finalizado
-                </td>
-            </tr>
-        </table>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <td class="text-center">
+                        <span style="color: #1E88E5;"><i class="fas fa-flag"></i>
+                        </span>Esperando
+                    </td>
+                    <td class="text-center">
+                        <span style="color: #ffc107"><i class="fas fa-flag"></i>
+                        </span>Iniciado
+                    </td>
+                    <td class="text-center">
+                        <span style="color: #28a745;"><i class="fas fa-flag"></i>
+                        </span>Finalizado
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-3"></div>
     </div>
     {{-- <form class="form form-inline" action="" method="POST">
         @csrf
@@ -36,7 +43,8 @@
         <table class="table table-hover table-bordered shadow">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col-2" width="50">Nº</th>
+                    <th class="text-center" scope="col-2" width="50"></th>
+                    <th class="text-center" scope="col-2" width="100">Nº</th>
                     <th scope="col-2">Tatuador</th>
                     <th scope="col-2" width="170">Data/Hora</th>
                     <th class="text-center not-mobile" scope="col-2" width="350">Opções</th>
@@ -45,20 +53,24 @@
             </thead>
             <tbody>
                 @foreach ($attendances as $attendance)
-                    @switch($attendance->status)
+                    <tr>
+                        @switch($attendance->status)
                         @case('WAIT')
-                            <tr class="table-info">
+                            <td class="text-center"><span style="color: #1E88E5;"><i class="fas fa-flag"></i></span></td>
+                            <td class="text-center">{{ $attendance->id }}</td>
                             @break
                         @case('STARTED')
-                            <tr class="table-warning">
+                            <td class="text-center"><span style="color: #ffc107;"><i class="fas fa-flag"></i></span></td>
+                            <td class="text-center">{{ $attendance->id }}</td>
                             @break
                         @case('FINISHED')
-                            <tr class="table-success">
+                            <td class="text-center"><span style="color: #28a745;"><i class="fas fa-flag"></i></span> </td>
+                            <td class="text-center">{{ $attendance->id }}</td>
                             @break
                         @default
-                            <tr>
-                    @endswitch
-                        <td>{{ $attendance->id }}</td>
+                            <td class="text-center"></td>
+                            <td>{{ $attendance->id }}</td>
+                        @endswitch
                         <td>{{ $attendance->collaborator }}</td>
                         <td>{{ $attendance->start }}</td>
                         <td class="text-center not-mobile">

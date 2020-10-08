@@ -9,7 +9,6 @@ use App\Http\Requests\ScheduleRequest;
 use App\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use stdClass;
 
 class ScheduleController extends Controller
 {
