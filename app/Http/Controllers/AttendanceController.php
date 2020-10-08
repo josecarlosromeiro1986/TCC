@@ -211,6 +211,11 @@ class AttendanceController extends Controller
                     'status' => $request->attendance_status
                 ]);
 
+            Schedule::where('attendance_id', '=', $request->attendance_id)
+                ->update([
+                    'start' => date('Y-m-d H:m:s')
+                ]);
+
             return back()->withInput()
                 ->with('success', 'Attendimento: Iniciado com sucesso!');
         }

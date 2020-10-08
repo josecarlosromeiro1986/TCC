@@ -225,6 +225,7 @@ class CollaboratorController extends Controller
     public function collaborators()
     {
         $collaborators = $this->collaborator
+            ->where('active', 'Y')
             ->select('id', 'name')
             ->get();
 

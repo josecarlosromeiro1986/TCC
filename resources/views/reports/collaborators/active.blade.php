@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
     </style>
 </head>
 <body>
-    <h3>Relação de Colaboradores</h3>
+    <h3>Relação de Colaboradores Ativos</h3>
     <table id="customers">
         <thead>
           <tr>

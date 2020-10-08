@@ -2,6 +2,7 @@
 @section('title', 'Atendimento')
 @section('activeAtt', 'activeElement')
 @section('content')
+<div class="center-content">
     <br class="mobile"/>
     <hr class="not-mobile">
         @switch($attendance->status)
@@ -69,4 +70,5 @@
     <hr class="not-mobile">
     <br class="mobile"/>
     <a href="{{ route('attendance.index') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+</div>
 @endsection
