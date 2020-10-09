@@ -1,7 +1,7 @@
 @extends('index')
 @section('title', 'Clientes')
 @section('activeCli', 'activeElement')
-@section('content')    
+@section('content')
     <div class="center-content">
         <h5 class="display-4 text-center">Clientes</h5>
         <a href="{{ route('client.create') }}" class="btn btn-cst btn-block shadow" role="button" aria-pressed="true">
@@ -107,6 +107,6 @@
     @endif
 
     <div class="center-content">
-        <a href="{{ route('home') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
-    </div>    
+        <a href="{{ route('/') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+    </div>
 @endsection

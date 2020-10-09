@@ -30,7 +30,8 @@ class CollaboratorRequest extends FormRequest
             ],
             'email' => [
                 'required',
-                'email:rfc,dns'
+                'email:rfc,dns',
+                'unique:users'
             ],
             'cpf' => [
                 'required',
@@ -96,7 +97,8 @@ class CollaboratorRequest extends FormRequest
             ],
             'password' => [
                 'required',
-                'string'
+                'string',
+                'min:8'
             ],
             'note' => [
                 'nullable',
@@ -112,6 +114,7 @@ class CollaboratorRequest extends FormRequest
             'name.string' => 'O Nome deve ser do tipo texto!',
             'email.required' => 'O E-mail é Obrigatório!',
             'email.email' => 'O E-mail deve ser válido!',
+            'email.unique' => 'O E-mail informado já existe!',
             'cpf.required' => 'O é Obrigatório!',
             'cpf.unique' => 'O CPF informado já está cadastrado!',
             'cpf.string' => 'O CPF deve ser do tipo texto!',
@@ -147,6 +150,7 @@ class CollaboratorRequest extends FormRequest
             'user.string' => 'O Nome de Usuário deve ser do tipo texto!',
             'password.required' => 'A Senha é Obrigatória!',
             'password.string' => 'A Senha deve ser do tipo texto!',
+            'password.min' => 'A Senha deve conter no minimo 8 caracteres!',
             'note.string' => 'A Observação deve ser do tipo texto!',
         ];
     }

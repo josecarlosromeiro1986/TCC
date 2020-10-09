@@ -103,5 +103,7 @@
     @else
         {!! $attendances->links() !!}
     @endif
-    <a href="{{ route('home') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+    <div class="center-content">
+        <a href="{{ route('/') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+    </div>
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Requests\CollaboratorRequest;
 use App\Http\Requests\UpdateCollaboratorRequest;
 use App\Office;
 use App\Phone;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -31,7 +32,7 @@ class CollaboratorController extends Controller
         $collaborators = $this->collaborator
             ->join('offices', 'collaborators.office_id', '=', 'offices.id')
             ->join('phones', 'collaborators.id', '=', 'phones.collaborator_id')
-            ->select('collaborators.*', 'offices.description AS office', 'phones.number AS phone')
+            ->select('collaborators.*', 'offices.description AS office', 'offices.access_id', 'phones.number AS phone')
             ->where([
                 ['collaborators.active', '=', 'Y'],
                 ['phones.main', '=', 'Y']
@@ -87,6 +88,12 @@ class CollaboratorController extends Controller
             'user' => $request->user,
             'password' => Hash::make($request->password),
             'note' => $request->note,
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
         $phone = new Phone;
@@ -163,11 +170,28 @@ class CollaboratorController extends Controller
      */
     public function update(UpdateCollaboratorRequest $request, Collaborator $collaborator)
     {
+        if ($request->office_id != 1) {
+            $collaborators = $this->collaborator
+                ->join('offices', 'collaborators.office_id', '=', 'offices.id')
+                ->where([
+                    ['collaborators.active', '=', 'Y'],
+                    ['offices.access_id', '=', 1],
+                    ['collaborators.id', '!=', $collaborator->id]
+                ])->get();
+
+            if (count($collaborators) == 0) {
+                return back()->withInput()
+                    ->with('error', 'O sistema deve ter pelo menos um Administrador!');
+            }
+        }
+
         Phone::where('id', $request->phone_id)
             ->update([
                 'number' => $request->phone,
                 'contact' => $request->name
             ]);
+
+        User::where('email', $collaborator->email)->update(['email' => $request->email]);
 
         $collaborator->update(
             $request->except(
@@ -191,6 +215,19 @@ class CollaboratorController extends Controller
      */
     public function destroy(Collaborator $collaborator)
     {
+        $collaborators = $this->collaborator
+            ->join('offices', 'collaborators.office_id', '=', 'offices.id')
+            ->where([
+                ['collaborators.active', '=', 'Y'],
+                ['offices.access_id', '=', 1],
+                ['collaborators.id', '!=', $collaborator->id]
+            ])->get();
+
+        if (count($collaborators) == 0) {
+            return back()->withInput()
+                ->with('error', 'O sistema deve ter pelo menos um Administrador!');
+        }
+
         $collaborator->update([
             'active' => 'N',
             'exit' => date('Y-m-d'),
@@ -200,6 +237,8 @@ class CollaboratorController extends Controller
             ->update([
                 'active' => 'N',
             ]);
+
+        User::where('email', $collaborator->email)->delete();
 
         return redirect()->back()
             ->with('success', 'Usuário: "' . $collaborator->name . '" deletado com sucesso!');
