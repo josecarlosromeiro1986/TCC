@@ -11465,6 +11465,14 @@ a.text-site:focus {
   background-color: #A9A9A9;
 }
 
+.complement {
+    position: fixed;
+    width: 250px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    background-color: whitesmoke;
+  }
+
 .bk-color {
   background-color: #0d4a6f;
 }

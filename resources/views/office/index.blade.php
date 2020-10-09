@@ -75,7 +75,7 @@
     @endif
 
     <div class="center-content">
-        <a href="{{ route('home') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+        <a href="{{ route('/') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
     </div>
 
     <!-- Modal -->

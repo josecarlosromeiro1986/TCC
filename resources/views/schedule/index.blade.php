@@ -20,7 +20,7 @@
                 </div>
             </div>
                 <button type="submit" class="btn btn-cst btn-primary">Buscar Agenda</button>
-                <a href="{{ route('home') }}" class="btn btn btn-secondary shadow" role="button" aria-pressed="true">Voltar</a>
+                <a href="{{ route('/') }}" class="btn btn btn-secondary shadow" role="button" aria-pressed="true">Voltar</a>
         </form>
     </div>
     <div id="app" data-route-schedule-index="{{ route('schedule.index') }}">

@@ -43,9 +43,11 @@
                             <a class="btn btn-info" href="{{ route('collaborator.edit', $collaborator) }}" role="button">
                                 <i class="fas fa-pencil-alt"></i>&nbspEditar
                             </a>
-                            <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $collaborator->id) }}" role="button">
-                                <i class="fas fa-pencil-alt"></i>&nbspExcluir
-                            </a>
+                            @if ($collaborator->access_id != 1)
+                                <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $collaborator->id) }}" role="button">
+                                    <i class="fas fa-pencil-alt"></i>&nbspExcluir
+                                </a>
+                            @endif
                             <a class="btn btn-cst" href="{{ route('collaborator.show', $collaborator) }}" role="button">
                                 <i class="far fa-id-card"></i>&nbspDetalhes
                             </a>
@@ -109,6 +111,6 @@
     @endif
 
     <div class="center-content">
-        <a href="{{ route('home') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
-    </div>    
+        <a href="{{ route('/') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+    </div>
 @endsection

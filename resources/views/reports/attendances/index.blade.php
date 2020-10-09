@@ -53,7 +53,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Gerar PDF</button>
-            <a href="" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+            <a href="{{ route('/') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
           </form>
     </div>
 @endsection

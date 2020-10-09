@@ -34,6 +34,7 @@
                 </div>
             </div>
                 <button type="submit" class="btn btn-cst btn-primary btn-block">Buscar Agenda</button>
+                <a href="{{ route('/') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
         </form>
     </div>
 @endsection
