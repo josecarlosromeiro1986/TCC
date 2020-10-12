@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     protected $table = 'schedules';
-    protected $fillable = ['attendance_id', 'title', 'start', 'end'];
+    protected $fillable = ['attendance_id', 'title', 'backgroundColor', 'start', 'end'];
 }

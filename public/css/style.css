@@ -11466,12 +11466,12 @@ a.text-site:focus {
 }
 
 .complement {
-    position: fixed;
-    width: 250px;
-    height: calc(100vh - 56px);
-    overflow-y: auto;
-    background-color: whitesmoke;
-  }
+  position: fixed;
+  width: 250px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  background-color: whitesmoke;
+}
 
 .bk-color {
   background-color: #0d4a6f;

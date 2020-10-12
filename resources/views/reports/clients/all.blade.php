@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Relação de Clientes</title>
+    <title>Relatório de Clientes</title>
     <style>
         #customers {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
             border-collapse: collapse;
+            font-size: 11px;
             width: 100%;
+        }
+
+        #cli {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            font-size: 13px;
         }
 
         #customers td, #customers th {
@@ -30,7 +36,14 @@
     </style>
 </head>
 <body>
-    <h3>Relação de Clientes</h3>
+    <h3>Relatório de Clientes</h3>
+    @if ($amount == 1)
+        <strong id="cli">Foi encontrado o total de {{ $amount }} Cliente.</strong>
+    @else
+        <strong id="cli">Foram encontrados o total de {{ $amount }} Clientes</strong>
+    @endif
+    <br />
+    <br />
     <table id="customers">
         <thead>
           <tr>
@@ -39,6 +52,7 @@
             <th>Nome</th>
             <th>CPF</th>
             <th>Data de Nascimento</th>
+            <th>Atendimentos</th>
           </tr>
         </thead>
         <tbody>
@@ -53,6 +67,7 @@
                     <td>{{ $client->name }}</td>
                     <td style="text-align: center;">{{ $client->cpf }}</td>
                     <td style="text-align: center;">{{ date('d/m/Y', strtotime($client->birth)) }}</td>
+                    <td style="text-align: center;">{{ $client->attendances }} Atendimentos</td>
                 </tr>
             @endforeach
         </tbody>

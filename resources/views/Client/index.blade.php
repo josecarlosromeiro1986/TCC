@@ -3,7 +3,8 @@
 @section('activeCli', 'activeElement')
 @section('content')
     <div class="center-content">
-        <h5 class="display-4 text-center">Clientes</h5>
+        <br />
+        <h1 class="text-center">Clientes</h1>
         <a href="{{ route('client.create') }}" class="btn btn-cst btn-block shadow" role="button" aria-pressed="true">
             <i class="fas fa-plus"></i>&nbspCliente
         </a>
@@ -21,11 +22,11 @@
     <br />
     @include('includes.alerts')
     <div class="table-responsive">
-        <table class="table table-hover table-bordered shadow">
+        <table class="table table-hover table-bordered shadow" style="font-size: 13px">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col-2">Nome</th>
-                    <th scope="col-2">Telefone</th>
+                    <th scope="col-2" width="150px">Telefone</th>
                     <th class="not-mobile" scope="col-2">E-mail</th>
                     <th class="text-center not-mobile" scope="col-2" width="350">Opções</th>
                     <th class="text-center mobile" scope="col-2">Opções</th>
@@ -38,13 +39,13 @@
                         <td>{{ $client->phone }}</td>
                         <td class="not-mobile">{{ $client->email }}</td>
                         <td class="text-center not-mobile">
-                            <a class="btn btn-info" href="{{ route('client.edit', $client) }}" role="button">
+                            <a class="btn btn-info" href="{{ route('client.edit', $client) }}" role="button" style="font-size: 13px">
                                 <i class="fas fa-pencil-alt"></i>&nbspEditar
                             </a>
-                            <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $client->id) }}" role="button">
+                            <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $client->id) }}" role="button" style="font-size: 13px">
                                 <i class="fas fa-pencil-alt"></i>&nbspExcluir
                             </a>
-                            <a class="btn btn-cst" href="{{ route('client.show', $client) }}" role="button">
+                            <a class="btn btn-cst" href="{{ route('client.show', $client) }}" role="button" style="font-size: 13px">
                                 <i class="far fa-id-card"></i>&nbspDetalhes
                             </a>
                         </td>

@@ -49,13 +49,12 @@ function update(element) {
     $("#attendanceUp input[name='end']").val(end);
 }
 
-var route = routeEvents('routeScheduleIndex');
-
 export default {
     components: {
         FullCalendar // make the <FullCalendar> tag available
     },
     data: function () {
+        var route = routeEvents('routeScheduleIndex');
         return {
             calendarOptions: {
                 plugins: [

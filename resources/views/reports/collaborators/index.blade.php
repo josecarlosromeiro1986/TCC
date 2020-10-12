@@ -3,7 +3,9 @@
 @section('activeRep', 'activeElement')
 @section('content')
     <div class="center-content">
-        <h3 class=" text-center">Relatórios de Colaboradores Cadastrados</h3>
+        <br />
+        <h3 class="text-center">Relatórios de Colaboradores Cadastrados</h3>
+        <hr>
         <form action="{{ route('reports.collaboratorPdf') }}" method="get">
             @csrf
             <div class="form-row">
@@ -16,7 +18,7 @@
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Gerar PDF</button>
+            <button type="submit" class="btn btn-cst btn-block">Gerar PDF</button>
             <a href="{{ route('/') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
           </form>
     </div>

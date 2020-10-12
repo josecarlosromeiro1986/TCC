@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Attendance;
 use App\Client;
 use App\Collaborator;
+use App\Color;
 use App\Http\Requests\ScheduleRequest;
 use App\Schedule;
 use Illuminate\Http\Request;
@@ -37,11 +38,18 @@ class AttendanceController extends Controller
                 'schedules.start'
             )
             ->orderBy('schedules.start', 'asc')
-            ->paginate(5)
+            ->paginate(6)
             ->onEachSide(0);
-        // dd($attendances);
+
+        $collaborators = Collaborator::where('access.access', 'TATUADOR')
+            ->join('offices', 'offices.id', '=', 'collaborators.office_id')
+            ->join('access', 'access.id', '=', 'offices.access_id')
+            ->select('collaborators.*')
+            ->get();
+
         return view('attendance.index', [
             'attendances' => $attendances,
+            'collaborators' => $collaborators
         ]);
     }
 
@@ -57,9 +65,11 @@ class AttendanceController extends Controller
                 ['active', '=', 'Y'],
             ])->get();
 
-        $collaborators = Collaborator::select('id', 'name')
+        $collaborators = Collaborator::select('collaborators.id', 'collaborators.name')
+            ->join('offices', 'offices.id', '=', 'collaborators.office_id')
             ->where([
-                ['active', '=', 'Y'],
+                ['collaborators.active', 'Y'],
+                ['offices.access_id', 2],
             ])->get();
 
         return view('attendance.create', [
@@ -106,7 +116,39 @@ class AttendanceController extends Controller
                 ->with('error', 'Já existe um atendimento com está data!');
         }
 
+        $schedules = DB::select("SELECT
+                                        sc.*
+                                    FROM
+                                        schedules sc
+                                        INNER JOIN attendances att
+                                        ON att.id = sc.attendance_id
+                                    WHERE att.client_id = :client
+                                        AND :date BETWEEN sc.start
+                                        AND sc.end", ['date' => $request->start, 'client' => $request->client_id]);
+
+        if (count($schedules) > 0) {
+            return back()->withInput()
+                ->with('error', 'Já existe um atendimento com está data!');
+        }
+
+        $schedules = DB::select("SELECT
+                                        sc.*
+                                    FROM
+                                        schedules sc
+                                        INNER JOIN attendances att
+                                        ON att.id = sc.attendance_id
+                                    WHERE att.client_id = :client
+                                        AND :date BETWEEN sc.start
+                                        AND sc.end", ['date' => $request->start, 'client' => $request->client_id]);
+
+        if (count($schedules) > 0) {
+            return back()->withInput()
+                ->with('error', 'Já existe um atendimento com está data!');
+        }
+
         $collaborator = Collaborator::where('id', $request->collaborator_id)->first();
+
+        $color = Color::find($request->collaborator_id);
 
         $attendance = $this->attendance->create([
             'client_id' => $request->client_id,
@@ -117,6 +159,8 @@ class AttendanceController extends Controller
         $schedule = new Schedule;
         $schedule->attendance_id = $attendance->id;
         $schedule->title = $collaborator->name . " - " . $request->client_name;
+        //$schedule->title = '';
+        $schedule->backgroundColor = $color->color;
         $schedule->start = $request->start;
         $schedule->end = $request->end;
         $schedule->save();
@@ -239,5 +283,184 @@ class AttendanceController extends Controller
 
         return back()->withInput()
             ->with('error', 'Erro ao atualizar Atendimento');
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->collaborator == 'ALL') {
+
+            switch ($request->status) {
+
+                case 'WAIT':
+
+                    $attendances = $this->attendance
+                        ->where('attendances.status', 'WAIT')
+                        ->join('clients', 'attendances.client_id', '=', 'clients.id')
+                        ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+                        ->join('schedules', 'schedules.attendance_id', '=', 'attendances.id')
+                        ->select(
+                            'attendances.*',
+                            'clients.name AS client',
+                            'collaborators.name AS collaborator',
+                            'schedules.start'
+                        )
+                        ->orderBy('schedules.start', 'asc')
+                        ->paginate(6)
+                        ->onEachSide(0);
+                    break;
+
+                case 'STARTED':
+
+                    $attendances = $this->attendance
+                        ->where('attendances.status', 'STARTED')
+                        ->join('clients', 'attendances.client_id', '=', 'clients.id')
+                        ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+                        ->join('schedules', 'schedules.attendance_id', '=', 'attendances.id')
+                        ->select(
+                            'attendances.*',
+                            'clients.name AS client',
+                            'collaborators.name AS collaborator',
+                            'schedules.start'
+                        )
+                        ->orderBy('schedules.start', 'asc')
+                        ->paginate(6)
+                        ->onEachSide(0);
+                    break;
+
+                case 'FINISHED':
+
+                    $attendances = $this->attendance
+                        ->where('attendances.status', 'FINISHED')
+                        ->join('clients', 'attendances.client_id', '=', 'clients.id')
+                        ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+                        ->join('schedules', 'schedules.attendance_id', '=', 'attendances.id')
+                        ->select(
+                            'attendances.*',
+                            'clients.name AS client',
+                            'collaborators.name AS collaborator',
+                            'schedules.start'
+                        )
+                        ->orderBy('schedules.start', 'asc')
+                        ->paginate(6)
+                        ->onEachSide(0);
+                    break;
+
+                default:
+
+                    $attendances = $this->attendance
+                        ->join('clients', 'attendances.client_id', '=', 'clients.id')
+                        ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+                        ->join('schedules', 'schedules.attendance_id', '=', 'attendances.id')
+                        ->select(
+                            'attendances.*',
+                            'clients.name AS client',
+                            'collaborators.name AS collaborator',
+                            'schedules.start'
+                        )
+                        ->orderBy('schedules.start', 'asc')
+                        ->paginate(6)
+                        ->onEachSide(0);
+                    break;
+            }
+        } else {
+
+            switch ($request->status) {
+
+                case 'WAIT':
+
+                    $attendances = $this->attendance
+                        ->where([
+                            ['attendances.status', 'WAIT'],
+                            ['collaborators.id', $request->collaborator]
+                        ])
+                        ->join('clients', 'attendances.client_id', '=', 'clients.id')
+                        ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+                        ->join('schedules', 'schedules.attendance_id', '=', 'attendances.id')
+                        ->select(
+                            'attendances.*',
+                            'clients.name AS client',
+                            'collaborators.name AS collaborator',
+                            'schedules.start'
+                        )
+                        ->orderBy('schedules.start', 'asc')
+                        ->paginate(6)
+                        ->onEachSide(0);
+                    break;
+
+                case 'STARTED':
+
+                    $attendances = $this->attendance
+                        ->where([
+                            ['attendances.status', 'STARTED'],
+                            ['collaborators.id', $request->collaborator]
+                        ])
+                        ->join('clients', 'attendances.client_id', '=', 'clients.id')
+                        ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+                        ->join('schedules', 'schedules.attendance_id', '=', 'attendances.id')
+                        ->select(
+                            'attendances.*',
+                            'clients.name AS client',
+                            'collaborators.name AS collaborator',
+                            'schedules.start'
+                        )
+                        ->orderBy('schedules.start', 'asc')
+                        ->paginate(6)
+                        ->onEachSide(0);
+                    break;
+
+                case 'FINISHED':
+
+                    $attendances = $this->attendance
+                        ->where([
+                            ['attendances.status', 'FINISHED'],
+                            ['collaborators.id', $request->collaborator]
+                        ])
+                        ->join('clients', 'attendances.client_id', '=', 'clients.id')
+                        ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+                        ->join('schedules', 'schedules.attendance_id', '=', 'attendances.id')
+                        ->select(
+                            'attendances.*',
+                            'clients.name AS client',
+                            'collaborators.name AS collaborator',
+                            'schedules.start'
+                        )
+                        ->orderBy('schedules.start', 'asc')
+                        ->paginate(6)
+                        ->onEachSide(0);
+                    break;
+
+                default:
+
+                    $attendances = $this->attendance
+                        ->where([
+                            ['collaborators.id', $request->collaborator]
+                        ])
+                        ->join('clients', 'attendances.client_id', '=', 'clients.id')
+                        ->join('collaborators', 'attendances.collaborator_id', '=', 'collaborators.id')
+                        ->join('schedules', 'schedules.attendance_id', '=', 'attendances.id')
+                        ->select(
+                            'attendances.*',
+                            'clients.name AS client',
+                            'collaborators.name AS collaborator',
+                            'schedules.start'
+                        )
+                        ->orderBy('schedules.start', 'asc')
+                        ->paginate(6)
+                        ->onEachSide(0);
+                    break;
+            }
+        }
+
+        $collaborators = Collaborator::where('access.access', 'TATUADOR')
+            ->join('offices', 'offices.id', '=', 'collaborators.office_id')
+            ->join('access', 'access.id', '=', 'offices.access_id')
+            ->select('collaborators.*')
+            ->get();
+
+        return view('attendance.index', [
+            'attendances' => $attendances,
+            'filters' => $request->except('_token'),
+            'collaborators' => $collaborators
+        ]);
     }
 }

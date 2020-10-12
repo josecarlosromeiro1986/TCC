@@ -82,11 +82,6 @@ class UpdateCollaboratorRequest extends FormRequest
                 'required',
                 'string'
             ],
-            'user' => [
-                'required',
-                Rule::unique('collaborators')->ignore($id),
-                'string'
-            ],
             'note' => [
                 'nullable',
                 'string'
@@ -132,8 +127,6 @@ class UpdateCollaboratorRequest extends FormRequest
             'city.required' => 'A Cidade é Obrigatória!',
             'city.string' => 'A Cidade deve ser do tipo texto!',
             'user.required' => 'O Nome de Usuário é Obrigatório!',
-            'user.unique' => 'O Nome de Usuário já existe, favor escolha outro!',
-            'user.string' => 'O Nome de Usuário deve ser do tipo texto!',
             'note.string' => 'A Observação deve ser do tipo texto!',
         ];
     }

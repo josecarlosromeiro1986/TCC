@@ -3,7 +3,8 @@
 @section('activeCreateAtt', 'activeElement')
 @section('content')
     <div class="center-content">
-        <h1 class="display-4 text-center">Novo Atendimento</h1>
+        <br />
+        <h1 class="text-center">Novo Atendimento</h1>
         <form class="needs-validation" action="{{ route('schedule.collaborator') }}" method="get" novalidate>
             <div class="form-row">
                 <div class="form-group col-md-12">

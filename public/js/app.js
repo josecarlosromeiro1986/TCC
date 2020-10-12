@@ -20545,13 +20545,13 @@ function update(element) {
   $("#attendanceUp input[name='end']").val(end);
 }
 
-var route = routeEvents('routeScheduleIndex');
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     FullCalendar: _fullcalendar_vue__WEBPACK_IMPORTED_MODULE_0__["default"] // make the <FullCalendar> tag available
 
   },
   data: function data() {
+    var route = routeEvents('routeScheduleIndex');
     return {
       calendarOptions: {
         plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_1__["default"], _fullcalendar_timegrid__WEBPACK_IMPORTED_MODULE_3__["default"], _fullcalendar_interaction__WEBPACK_IMPORTED_MODULE_2__["default"], // needed for dateClick
@@ -20720,13 +20720,13 @@ function update(element) {
   $("#attendanceUp input[name='end']").val(end);
 }
 
-var route = routeEvents('routeScheduleIndex');
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     FullCalendar: _fullcalendar_vue__WEBPACK_IMPORTED_MODULE_0__["default"] // make the <FullCalendar> tag available
 
   },
   data: function data() {
+    var route = routeEvents('routeScheduleIndex');
     return {
       calendarOptions: {
         plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_1__["default"], _fullcalendar_timegrid__WEBPACK_IMPORTED_MODULE_3__["default"], _fullcalendar_interaction__WEBPACK_IMPORTED_MODULE_2__["default"], // needed for dateClick

@@ -13,6 +13,11 @@
             width: 100%;
         }
 
+        #attendances {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            font-size: 13px;
+        }
+
         #customers td, #customers th {
             border: 1px solid #ddd;
             padding: 8px;
@@ -32,7 +37,14 @@
     </style>
 </head>
 <body>
-    <h3>Relatório de Atendimentos do dia {{ $date }}</h3>
+    <h3>Relatório de Atendimentos<br />do dia {{ $date }}</h3>
+    @if ($amount == 1)
+        <strong id="attendances">Foi encontrado o total de {{ $amount }} atendimento.</strong>
+    @else
+        <strong id="attendances">Foram encontrados o total de {{ $amount }} atendimentos</strong>
+    @endif
+    <br />
+    <br />
     <table id="customers">
         <thead>
           <tr>

@@ -22,6 +22,7 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = $this->schedule
+            ->where('attendances.status', '!=', 'FINISHED')
             ->join('attendances', 'attendances.id', '=', 'schedules.attendance_id')
             ->join('collaborators', 'collaborators.id', '=', 'attendances.collaborator_id')
             ->join('clients', 'clients.id', '=', 'attendances.client_id')
@@ -124,6 +125,45 @@ class ScheduleController extends Controller
                 ->with('error', 'Já existe um atendimento com está data!');
         }
 
+        $schedules = DB::select("SELECT
+                                        sc.*
+                                    FROM
+                                        schedules sc
+                                        INNER JOIN attendances att
+                                        ON att.id = sc.attendance_id
+                                    WHERE att.client_id = :client
+                                        AND sc.id <> :schedule
+                                        AND :date BETWEEN sc.start
+                                        AND sc.end", ['date' => $request->start, 'client' => $request->client_id, 'schedule' => $request->schedule_id]);
+
+        if (count($schedules) > 0) {
+            return back()->withInput()
+                ->with('error', 'Já existe um atendimento com está data!');
+        }
+
+        $schedules = DB::select("SELECT
+                                        sc.*
+                                    FROM
+                                        schedules sc
+                                        INNER JOIN attendances att
+                                        ON att.id = sc.attendance_id
+                                    WHERE att.client_id = :client
+                                        AND sc.id <> :schedule
+                                        AND :date BETWEEN sc.start
+                                        AND sc.end", ['date' => $request->start, 'client' => $request->client_id, 'schedule' => $request->schedule_id]);
+
+        if (count($schedules) > 0) {
+            return back()->withInput()
+                ->with('error', 'Já existe um atendimento com está data!');
+        }
+
+        $attendance = Attendance::find($request->attendance_id);
+
+        if($attendance->status == 'STARTED') {
+            return back()->withInput()
+                ->with('error', 'O atendimento já foi iniciado!');
+        }
+
         Attendance::where('id', $request->attendance_id)
             ->update([
                 'note' => $request->note
@@ -156,7 +196,10 @@ class ScheduleController extends Controller
     public function search(Request $request)
     {
         $schedules = $this->schedule
-            ->where('collaborators.id', $request->collaborator_id)
+            ->where([
+                ['collaborators.id', $request->collaborator_id],
+                ['attendances.status', '!=', 'FINISHED']
+            ])
             ->join('attendances', 'attendances.id', '=', 'schedules.attendance_id')
             ->join('collaborators', 'collaborators.id', '=', 'attendances.collaborator_id')
             ->join('clients', 'clients.id', '=', 'attendances.client_id')

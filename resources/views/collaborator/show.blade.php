@@ -22,7 +22,7 @@
         <div class="col-md-3">
             <h5>Data de inicio:&nbsp</h5>
             <p>{{ date('d/m/Y', strtotime($collaborator->start)) }}</p>
-        </div>        
+        </div>
         <div class="col-md-3">
             @if ($collaborator->exit != '')
                 <h5>Data saída:&nbsp</h5>
@@ -78,19 +78,19 @@
                     <li class="list-group-item"><strong>Rua:&nbsp</strong>{{ $collaborator->address }}</li>
                     <li class="list-group-item"><strong>Número:&nbsp</strong>{{ $collaborator->number }}</li>
                     <li class="list-group-item"><strong>Complemento:&nbsp</strong>{{ $collaborator->complement ?? '' }}</li>
-                </ul>                
+                </ul>
             </div>
             <hr>
-        </div>        
-        <div class="col-md-6">            
+        </div>
+        <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-header">
                     <h5><i class="fas fa-phone-alt"></i></i><strong>&nbspTelefone</strong></h5>
                 </div>
-                <table class="table table table-bordered table-hover">
+                <table class="table table table-bordered table-hover" style="font-size: 13px">
                     <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Número</th>
+                            <th scope="col" width="150px">Número</th>
                             <th scope="col">Nome</th>
                             <th class="text-center" scope="col">Opções</th>
                         </tr>
@@ -98,12 +98,16 @@
                     <tbody>
                         @foreach ($phones as $phone)
                             <tr>
-                                <th>{{ $phone->number }}</th>
+                                @if ($phone->main != 'Y')
+                                    <th>{{ $phone->number }}</th>
+                                @else
+                                    <th><span style="color: #008000;"><i class="fas fa-crown"></i></span>&nbsp{{ $phone->number }}</th>
+                                @endif
                                 <td>{{ $phone->contact }}</td>
                                 <td class="text-center not-mobile">
-                                    <a class="btn btn-info text-white" data-toggle="modal" data-target="#edit{{ str_replace(' ', '', $phone->id) }}" role="button" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-info text-white" data-toggle="modal" data-target="#edit{{ str_replace(' ', '', $phone->id) }}" role="button" title="Editar" style="font-size: 13px"><i class="fas fa-pencil-alt"></i></a>
                                     @if ($phone->main != 'Y')
-                                        <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $phone->id) }}" role="button" title="Excluir"><i class="far fa-trash-alt"></i></a>                                        
+                                        <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $phone->id) }}" role="button" title="Excluir" style="font-size: 13px"><i class="far fa-trash-alt"></i></a>
                                     @endif
                                 </td>
                                 <td class="text-center mobile">
@@ -179,13 +183,13 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         @endforeach
                     </tbody>
                 </table>
                 <a class="btn btn-cst text-white" data-toggle="modal" data-target="#create" role="button"><i class="fas fa-plus"></i>&nbspTelefone</a>
             </div>
-            {!! $phones->links() !!}             
+            {!! $phones->links() !!}
             <hr>
             <div class="card shadow">
                 <div class="card-header">

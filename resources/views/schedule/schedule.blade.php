@@ -3,8 +3,13 @@
 @section('activeSch', 'activeElement')
 @section('content')
 @include('includes.alerts')
-    <h1 class="display-4 text-center">Agenda do {{ $data['collaborator_name'] }}</h1>
-    <a href="{{ route('collaborators') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+    <br />
+    <h1 class="text-center">Agenda do {{ $data['collaborator_name'] }}</h1>
+    <div class="center-content">
+        <hr>
+        <a href="{{ route('collaborators') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
+        <hr>
+    </div>
     <div id="app" data-route-schedule-index="{{ route('schedule.search', $data) }}">
         <calendar-component></calendar-component>
     </div>

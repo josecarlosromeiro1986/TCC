@@ -128,6 +128,9 @@
                     <a class="dropdown-item" href="{{ route('reports.attendance') }}">
                         <i class="far fa-chart-bar"></i>&nbspAtendimentos
                     </a>
+                    <a class="dropdown-item" href="{{ route('reports.tatuador') }}">
+                        <i class="far fa-chart-bar"></i>&nbspTatuadores
+                    </a>
                 </div>
             </li>
         </ul>
@@ -195,6 +198,7 @@
             </div>
         </div>
     @endguest
+    <div id="app"></div>
     <script src="{{ asset('js/app.js')}} "></script>
     <script src="{{ asset('js/mask.js')}} "></script>
     <script src="{{ asset('js/custom.js')}} "></script>

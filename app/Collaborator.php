@@ -23,7 +23,6 @@ class Collaborator extends Model
         'neighborhood',
         'state',
         'city',
-        'user',
         'password',
         'note',
         'active',

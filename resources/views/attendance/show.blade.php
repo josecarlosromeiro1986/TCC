@@ -63,7 +63,7 @@
                     <label for="note">Observações</label>
                     <textarea class="form-control shadow-sm" name="note" id="note" rows="3">{{ $attendance->note }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+                <button type="submit" class="btn btn-cst btn-block">Salvar</button>
             </form>
         </div>
     </div>
