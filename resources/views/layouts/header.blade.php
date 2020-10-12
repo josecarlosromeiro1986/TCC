@@ -198,6 +198,7 @@
             </div>
         </div>
     @endguest
+    <div id="app"></div>
     <script src="{{ asset('js/app.js')}} "></script>
     <script src="{{ asset('js/mask.js')}} "></script>
     <script src="{{ asset('js/custom.js')}} "></script>
