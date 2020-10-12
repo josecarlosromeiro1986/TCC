@@ -21,12 +21,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::any('collaborators', 'CollaboratorController@collaborators')->name('collaborators');
     Route::resource('collaborator', 'CollaboratorController');
 
-
-
     Route::resource('typePhone', 'TypePhoneController');
     Route::resource('phone', 'PhoneController');
 
     Route::any('attendance/status', 'AttendanceController@status')->name('attendance.status');
+    Route::any('attendance/search', 'attendanceController@search')->name('attendance.search');
     Route::resource('attendance', 'AttendanceController');
 
     Route::get('schedule', 'ScheduleController@index')->name('schedule.index');
@@ -40,6 +39,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('reports/clientPdf', 'ReportsController@clientPdf')->name('reports.clientPdf');
     Route::get('reports/attendance', 'ReportsController@attendance')->name('reports.attendance');
     Route::get('reports/attendancePdf', 'ReportsController@attendancePdf')->name('reports.attendancePdf');
+    Route::get('reports/tatuador', 'ReportsController@tatuador')->name('reports.tatuador');
+    Route::get('reports/tatuadorPdf', 'ReportsController@tatuadorPdf')->name('reports.tatuadorPdf');
 });
 
 Route::any('client/search', 'ClientController@search')->name('client.search');

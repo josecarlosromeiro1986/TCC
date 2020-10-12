@@ -85,7 +85,6 @@ class CollaboratorController extends Controller
             'neighborhood' => $request->neighborhood,
             'state' => $request->state,
             'city' => $request->city,
-            'user' => $request->user,
             'password' => Hash::make($request->password),
             'note' => $request->note,
         ]);

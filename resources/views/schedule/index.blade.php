@@ -23,6 +23,7 @@
                 <a href="{{ route('/') }}" class="btn btn btn-secondary shadow" role="button" aria-pressed="true">Voltar</a>
         </form>
     </div>
+    @include('includes.alerts')
     <div id="app" data-route-schedule-index="{{ route('schedule.index') }}">
         <schedule-component></schedule-component>
     </div>

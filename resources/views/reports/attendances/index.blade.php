@@ -3,7 +3,10 @@
 @section('activeRep', 'activeElement')
 @section('content')
     <div class="center-content">
+        <br />
         <h3 class=" text-center">Relatórios de Atendimentos</h3>
+        <hr>
+        @include('includes.alerts')
         <form class="needs-validation" action="{{ route('reports.attendancePdf') }}" method="get" novalidate>
             @csrf
             <div class="form-row">
@@ -23,36 +26,17 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="start">Tatuador</label>
-                    <select id="collaborator" name='collaborator' class="form-control" required>
-                        <option value='ALLCOL' selected>Todos Tatuadores</option>
-                        @foreach ($collaborators as $collaborator)
-                            <option value='{{ $collaborator->id }}'>{{ $collaborator->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="end">Cliente</label>
-                    <select id="client" name='client' class="form-control" required>
-                        <option value='ALLCLI' selected>Todos Clientes</option>
-                        @foreach ($clients as $client)
-                            <option value='{{ $client->id }}'>{{ $client->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="inputState">Tipo de Relatório</label>
                     <select id="type" name='type' class="form-control" required>
                         <option value='ALL' selected>Todos Atendimentos</option>
-                        <option value='OPEN'>Atendimentos em aberto</option>
-                        <option value='CLOSED'>Atendimentos fechados</option>
+                        <option value='WAIT'>Atendimentos em Espera</option>
+                        <option value='START'>Atendimentos em Iniciados</option>
+                        <option value='CLOSED'>Atendimentos Finalizados</option>
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Gerar PDF</button>
+            <button type="submit" class="btn btn-cst btn-block">Gerar PDF</button>
             <a href="{{ route('/') }}" class="btn btn btn-secondary btn-block shadow" role="button" aria-pressed="true">Voltar</a>
           </form>
     </div>

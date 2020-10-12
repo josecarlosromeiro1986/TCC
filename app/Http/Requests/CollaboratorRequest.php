@@ -90,11 +90,6 @@ class CollaboratorRequest extends FormRequest
                 'required',
                 'string'
             ],
-            'user' => [
-                'required',
-                'unique:collaborators,user',
-                'string'
-            ],
             'password' => [
                 'required',
                 'string',
@@ -146,8 +141,6 @@ class CollaboratorRequest extends FormRequest
             'city.required' => 'A Cidade é Obrigatória!',
             'city.string' => 'A Cidade deve ser do tipo texto!',
             'user.required' => 'O Nome de Usuário é Obrigatório!',
-            'user.unique' => 'O Nome de Usuário já existe, favor escolha outro!',
-            'user.string' => 'O Nome de Usuário deve ser do tipo texto!',
             'password.required' => 'A Senha é Obrigatória!',
             'password.string' => 'A Senha deve ser do tipo texto!',
             'password.min' => 'A Senha deve conter no minimo 8 caracteres!',

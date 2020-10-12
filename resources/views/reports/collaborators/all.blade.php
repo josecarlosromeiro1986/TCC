@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Relação de Colaboradores</title>
+    <title>Relatório de Colaboradores</title>
     <style>
         #customers {
             font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
             border-collapse: collapse;
+            font-size: 11px;
             width: 100%;
+        }
+
+        #collab {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            font-size: 13px;
         }
 
         #customers td, #customers th {
@@ -30,7 +36,14 @@
     </style>
 </head>
 <body>
-    <h3>Relação de Colaboradores</h3>
+    <h3>Relatório de Colaboradores</h3>
+    @if ($amount == 1)
+        <strong id="collab">Foi encontrado o total de {{ $amount }} Colaborador.</strong>
+    @else
+        <strong id="collab">Foram encontrados o total de {{ $amount }} Colaboradores</strong>
+    @endif
+    <br />
+    <br />
     <table id="customers">
         <thead>
           <tr>

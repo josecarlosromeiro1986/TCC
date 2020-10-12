@@ -128,6 +128,9 @@
                     <a class="dropdown-item" href="{{ route('reports.attendance') }}">
                         <i class="far fa-chart-bar"></i>&nbspAtendimentos
                     </a>
+                    <a class="dropdown-item" href="{{ route('reports.tatuador') }}">
+                        <i class="far fa-chart-bar"></i>&nbspTatuadores
+                    </a>
                 </div>
             </li>
         </ul>

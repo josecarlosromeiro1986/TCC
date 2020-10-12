@@ -30,7 +30,6 @@ class CreateCollaboratorsTable extends Migration
             $table->string('state');
             $table->string('neighborhood');
             $table->string('email');
-            $table->string('user');
             $table->string('password');
             $table->mediumText('note')->nullable();
             $table->enum('active', ['Y', 'N'])->default('Y');

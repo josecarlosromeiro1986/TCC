@@ -2,7 +2,9 @@
 @section('title', 'Usuário')
 @section('activeUser', 'activeElement')
 @section('content')
-    <h1 class="display-4">Novo Usuário</h1>
+    <br/>
+    <h1>Novo Usuário</h1>
+    <hr>
     <form class="needs-validation" action="{{ route('collaborator.store') }}" method="post" novalidate>
         @include('collaborator.form')
     </form>

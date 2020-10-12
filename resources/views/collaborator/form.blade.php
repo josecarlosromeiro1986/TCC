@@ -38,7 +38,7 @@
             <div class="invalid-feedback">
                 O Telefone é Obrigatório!
             </div>
-        </div>        
+        </div>
         <div class="form-group col-md-3">
             <label for="birth">Data de Nascimento</label>
             <input type="date" class="form-control shadow-sm" name="birth" id="birth" value="{{ $collaborator->birth ?? old('birth') }}" required>
@@ -118,13 +118,6 @@
             <input type="text" class="form-control shadow-sm" name="city" id="city" value="{{ $collaborator->city ?? old('city') }}" required>
             <div class="invalid-feedback">
                 A Cidade é Obrigatória!
-            </div>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="user">Nome de usuário</label>
-            <input type="text" class="form-control shadow-sm" name="user" id="user" value="{{ $collaborator->user ?? old('user') }}" required>
-            <div class="invalid-feedback">
-                O Nome de Usuário é Obrigatório!
             </div>
         </div>
         @if (!isset($collaborator))

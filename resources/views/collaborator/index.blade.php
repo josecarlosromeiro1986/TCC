@@ -3,7 +3,8 @@
 @section('activeUser', 'activeElement')
 @section('content')
     <div class="center-content">
-        <h5 class="display-4 text-center">Usuários</h5>
+        <br />
+        <h1 class="text-center">Usuários</h1>
         <a href="{{ route('collaborator.create') }}" class="btn btn-cst btn-block shadow" role="button" aria-pressed="true">
             <i class="fas fa-plus"></i>&nbspUsuário
         </a>
@@ -21,12 +22,12 @@
     <br />
     @include('includes.alerts')
     <div class="table-responsive">
-        <table class="table table-hover table-bordered shadow">
+        <table class="table table-hover table-bordered shadow" style="font-size: 13px">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col-2">Nome</th>
-                    <th class="not-mobile" scope="col-2">Cargo</th>
-                    <th scope="col-2">Telefone</th>
+                    <th class="not-mobile" scope="col-2" width="150px">Cargo</th>
+                    <th scope="col-2" width="150px">Telefone</th>
                     <th class="not-mobile" scope="col-2">E-mail</th>
                     <th class="text-center not-mobile" scope="col-2" width="350">Opções</th>
                     <th class="text-center mobile" scope="col-2">Opções</th>
@@ -40,15 +41,15 @@
                         <td>{{ $collaborator->phone }}</td>
                         <td class="not-mobile">{{ $collaborator->email }}</td>
                         <td class="text-center not-mobile">
-                            <a class="btn btn-info" href="{{ route('collaborator.edit', $collaborator) }}" role="button">
+                            <a class="btn btn-info" href="{{ route('collaborator.edit', $collaborator) }}" role="button" style="font-size: 13px">
                                 <i class="fas fa-pencil-alt"></i>&nbspEditar
                             </a>
                             @if ($collaborator->access_id != 1)
-                                <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $collaborator->id) }}" role="button">
+                                <a class="btn btn-danger text-white" data-toggle="modal" data-target="#delete{{ str_replace(' ', '', $collaborator->id) }}" role="button" style="font-size: 13px">
                                     <i class="fas fa-pencil-alt"></i>&nbspExcluir
                                 </a>
                             @endif
-                            <a class="btn btn-cst" href="{{ route('collaborator.show', $collaborator) }}" role="button">
+                            <a class="btn btn-cst" href="{{ route('collaborator.show', $collaborator) }}" role="button" style="font-size: 13px">
                                 <i class="far fa-id-card"></i>&nbspDetalhes
                             </a>
                         </td>
