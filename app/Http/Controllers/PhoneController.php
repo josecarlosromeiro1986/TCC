@@ -92,10 +92,54 @@ class PhoneController extends Controller
      */
     public function update(Request $request, Phone $phone)
     {
-        $phone->update([
-            'number' => $request->phone,
-            'contact' => $request->contact
-        ]);
+        if (isset($request->main)) {
+
+            if ($request->main == '1') {
+
+                if (!is_null($phone->client_id)) {
+
+                    $main = $this->phone->where([
+                        ['client_id', $phone->client_id],
+                        ['main', 'Y']
+                    ])->select('phones.id')->first();
+
+                    $main->update([
+                        'main' => 'N'
+                    ]);
+
+                    $phone->update([
+                        'number' => $request->phone,
+                        'contact' => $request->contact,
+                        'main' => 'Y'
+                    ]);
+                }
+
+                if (!is_null($phone->collaborator_id)) {
+
+                    $main = $this->phone->where([
+                        ['collaborator_id', $phone->collaborator_id],
+                        ['main', 'Y']
+                    ])->select('phones.id')->first();
+
+                    $main->update([
+                        'main' => 'N'
+                    ]);
+
+                    $phone->update([
+                        'number' => $request->phone,
+                        'contact' => $request->contact,
+                        'main' => 'Y'
+                    ]);
+                }
+            }
+        } else {
+
+            $phone->update([
+                'number' => $request->phone,
+                'contact' => $request->contact
+            ]);
+        }
+
 
         return redirect()->back()
             ->with('success', 'Contato: "' . $request->contact . '" editado com sucesso!');

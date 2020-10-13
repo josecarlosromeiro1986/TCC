@@ -22,7 +22,7 @@ class StoreClientRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {        
+    {
         return [
             'name' => [
                 'required',
@@ -34,7 +34,7 @@ class StoreClientRequest extends FormRequest
             ],
             'cpf' => [
                 'required',
-                //'unique:collaborators,cpf',
+                'unique:collaborators,cpf',
                 'string',
                 'max:14'
             ],

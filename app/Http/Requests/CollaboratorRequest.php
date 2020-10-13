@@ -35,7 +35,7 @@ class CollaboratorRequest extends FormRequest
             ],
             'cpf' => [
                 'required',
-                //'unique:collaborators,cpf',
+                'unique:collaborators,cpf',
                 'string',
                 'max:14'
             ],

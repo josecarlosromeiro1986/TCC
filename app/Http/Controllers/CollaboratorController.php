@@ -70,6 +70,19 @@ class CollaboratorController extends Controller
      */
     public function store(CollaboratorRequest $request)
     {
+        if (!$this->validaCPF($request->cpf)) {
+
+            return back()->withInput()
+                ->with('error', 'CPF inválido, favor informe um CPF válido');
+        }
+
+        $access = Office::where('offices.id', $request->office_id)
+            ->join('access', 'access.id', 'offices.access_id')
+            ->select('access.access')
+            ->first();
+
+        //dd($access->access);
+
         $collaborator = $this->collaborator->create([
             'name' => $request->name,
             'email' => $request->email,
@@ -93,6 +106,7 @@ class CollaboratorController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'access' => $access->access
         ]);
 
         $phone = new Phone;
@@ -169,6 +183,12 @@ class CollaboratorController extends Controller
      */
     public function update(UpdateCollaboratorRequest $request, Collaborator $collaborator)
     {
+        if (!$this->validaCPF($request->cpf)) {
+
+            return back()->withInput()
+                ->with('error', 'CPF inválido, favor informe um CPF válido');
+        }
+
         if ($request->office_id != 1) {
             $collaborators = $this->collaborator
                 ->join('offices', 'collaborators.office_id', '=', 'offices.id')

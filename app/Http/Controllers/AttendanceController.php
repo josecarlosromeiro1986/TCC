@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
+use App\AttendanceProduct;
 use App\Client;
 use App\Collaborator;
 use App\Color;
 use App\Http\Requests\ScheduleRequest;
+use App\Product;
 use App\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -194,10 +196,22 @@ class AttendanceController extends Controller
             ->orderBy('schedules.start', 'asc')
             ->first();
 
-        //dd($attendance);
+        $products = Product::where([
+            ['active', 'Y'],
+            ['quantity', '>', '0']
+        ])->get();
+
+        $prodAtts = AttendanceProduct::where('attendances_products.attendance_id', $attendance->id)
+        ->join('products', 'products.id', 'attendances_products.product_id')
+        ->select('attendances_products.quantity_product', 'products.name')
+        ->get();
+
+        //dd($prodAtts);
 
         return view('attendance.show', [
-            'attendance' => $attendance
+            'attendance' => $attendance,
+            'products' => $products,
+            'prodAtts' => $prodAtts
         ]);
     }
 
