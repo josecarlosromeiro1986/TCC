@@ -57,6 +57,12 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {
+        if (!$this->validaCPF($request->cpf)) {
+
+            return back()->withInput()
+                ->with('error', 'CPF inválido, favor informe um CPF válido');
+        }
+
         $client = $this->client->create([
             'name' => $request->name,
             'email' => $request->email,
@@ -134,6 +140,12 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, Client $client)
     {
+        if (!$this->validaCPF($request->cpf)) {
+
+            return back()->withInput()
+                ->with('error', 'CPF inválido, favor informe um CPF válido');
+        }
+
         Phone::where('id', $request->phone_id)
             ->update([
                 'number' => $request->phone,

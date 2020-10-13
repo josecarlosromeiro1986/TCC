@@ -37,7 +37,7 @@ class UpdateClientRequest extends FormRequest
             ],
             'cpf' => [
                 'required',
-                //Rule::unique('clients')->ignore($id),
+                Rule::unique('clients')->ignore($id),
                 'string',
                 'max:14'
             ],

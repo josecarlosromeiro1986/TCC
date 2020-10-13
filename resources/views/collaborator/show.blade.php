@@ -149,6 +149,12 @@
                                                     <label for="contact">Contato</label>
                                                     <input type="text" class="form-control shadow-sm" name="contact" id="contact" value="{{ $phone->contact ?? old('description') }}" required>
                                                 </div>
+                                                @if ($phone->main != 'Y')
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="main" value="1" id="main">
+                                                        <label class="form-check-label" for="main">Tornar Principal</label>
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

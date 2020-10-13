@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Equipment;
+use App\Http\Requests\EquipmentRequest;
 use Illuminate\Http\Request;
 
 class EquipmentController extends Controller
 {
+    private $equipment;
+
+    public function __construct(Equipment $equipment)
+    {
+        $this->equipment = $equipment;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -33,9 +41,15 @@ class EquipmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EquipmentRequest $request)
     {
-        //
+        $this->equipment->name = $request->name;
+        $this->equipment->description = $request->description;
+        $this->equipment->save();
+
+        return redirect()
+            ->route('stock.index')
+            ->with('success', 'Patrimônio: "' . $request->name . '" Adicionado com sucesso!');
     }
 
     /**
@@ -67,9 +81,17 @@ class EquipmentController extends Controller
      * @param  \App\Equipment  $equipment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Equipment $equipment)
+    public function update(EquipmentRequest $request, Equipment $equipment)
     {
-        //
+        $equipment->update(
+            $request->except(
+                '_method',
+                '_token',
+            )
+        );
+
+        return redirect()->back()
+            ->with('success', 'Patrimônio: "' . $equipment->name . '" Editado com sucesso!');
     }
 
     /**
@@ -80,6 +102,11 @@ class EquipmentController extends Controller
      */
     public function destroy(Equipment $equipment)
     {
-        //
+        $equipment->update([
+            'active' => 'N',
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'Patrimônio: "' . $equipment->name . '" deletado com sucesso!');
     }
 }

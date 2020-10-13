@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Attendance;
+use App\AttendanceProduct;
 use App\Client;
 use App\Collaborator;
+use App\Equipment;
+use App\Product;
 use App\Schedule;
 use Illuminate\Http\Request;
 use PDF;
@@ -24,6 +27,11 @@ class ReportsController extends Controller
     public function attendance()
     {
         return view('reports.attendances.index');
+    }
+
+    public function stock()
+    {
+        return view('reports.stock.index');
     }
 
     public function tatuador()
@@ -507,5 +515,117 @@ class ReportsController extends Controller
         ]);
 
         return $pdf->setPaper('a4')->download($name);
+    }
+
+    public function stockPdf(Request $request)
+    {
+        //dd($request->all());
+        $amount = 0;
+        $total = 0;
+
+        switch ($request->checkbox) {
+
+            case 'ALL':
+
+                $products = Product::where('active', 'Y')->get();
+
+                $amount += count($products);
+
+                foreach ($products as $product) {
+                    $total += $product->quantity;
+                }
+
+                $equipments = Equipment::where('equipment.active', 'Y')
+                    ->leftjoin('collaborators', 'collaborators.id', 'equipment.collaborator_id')
+                    ->select('equipment.*', 'collaborators.name as collaborator')->get();
+
+                $amount += count($equipments);
+                $total += count($equipments);
+
+                $pdf = PDF::loadView('reports.stock.all', [
+                    'equipments' => $equipments,
+                    'products' => $products,
+                    'amount' => $amount,
+                    'total' => $total,
+                ]);
+
+                return $pdf->setPaper('a4')->download('estoque' . '_' . time() . '.pdf');
+
+                break;
+
+            case 'PAT':
+
+                $equipments = Equipment::where('equipment.active', 'Y')
+                    ->leftjoin('collaborators', 'collaborators.id', 'equipment.collaborator_id')
+                    ->select('equipment.*', 'collaborators.name as collaborator')->get();
+
+                $amount += count($equipments);
+
+                $pdf = PDF::loadView('reports.stock.equipment', [
+                    'equipments' => $equipments,
+                    'amount' => $amount,
+                ]);
+
+                return $pdf->setPaper('a4')->download('patromonio' . '_' . time() . '.pdf');
+
+                break;
+
+            case 'INS':
+
+                $products = Product::where('active', 'Y')->get();
+
+                $amount += count($products);
+
+                foreach ($products as $product) {
+                    $total += $product->quantity;
+                }
+
+                $pdf = PDF::loadView('reports.stock.product', [
+                    'products' => $products,
+                    'amount' => $amount,
+                    'total' => $total
+                ]);
+
+                return $pdf->setPaper('a4')->download('insumo' . '_' . time() . '.pdf');
+
+                break;
+
+            case 'ATT':
+
+                $results = [];
+
+                $attenProd = AttendanceProduct::select(
+                    'attendances_products.id',
+                    'attendances_products.attendance_id',
+                    'collaborators.name'
+                )->join('attendances', 'attendances.id', 'attendances_products.attendance_id')
+                    ->join('collaborators', 'collaborators.id', 'attendances.collaborator_id')
+                    ->groupBy('attendances_products.attendance_id')
+                    ->get();
+
+                foreach ($attenProd as $att) {
+                    $prod = AttendanceProduct::where('attendances_products.attendance_id', $att->attendance_id)
+                    ->join('products', 'products.id', 'attendances_products.product_id')
+                    ->select('attendances_products.*', 'products.name', 'products.description')
+                    ->get();
+                    array_push($results, ['att' =>  $att->attendance_id, 'coll' => $att->name, 'prod' => $prod]);
+                }
+
+                //dd($results);
+
+                $pdf = PDF::loadView('reports.stock.attenProd', [
+                    'results' => $results,
+                ]);
+
+                return $pdf->setPaper('a4')->download('insumo-atend' . '_' . time() . '.pdf');
+
+                break;
+
+            default:
+
+                return back()->withInput()
+                    ->with('error', 'Selecione um filtro para gerar o relatório!');
+                break;
+        }
     }
 }

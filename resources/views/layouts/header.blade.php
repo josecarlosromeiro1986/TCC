@@ -33,6 +33,11 @@
                     @guest
                     @else
                         <li class="text-light">
+                            <a class="nav-link text-light" href="{{ route('/') }}">
+                                <i class="fa fa-user"></i><span class="clearfix d-none d-sm-inline-block">&nbspHome</span>
+                            </a>
+                        </li>
+                        <li class="text-light">
                             <i class="fa fa-user"></i><span class="clearfix d-none d-sm-inline-block">&nbsp{{ Auth::user()->name }}</span>
                         </li>
                         <li class="nav-item">
@@ -76,23 +81,24 @@
     <!-- M E N U   -   L A T E R A L -->
     <div class="lateral-menu shadow" id="menu">
         <ul class="nav flex-column">
-            <li class="nav-item item-lateral-menu">
-                <a class="nav-link link-lateral-menu @yield('activeOffice')" href="{{ route('office.index') }}" id="1">
-                    <i class="fas fa-user-tie"></i>&nbspCargos
-                </a>
-            </li>
-            {{-- <li class="nav-item item-lateral-menu">
-                <a class="nav-link link-lateral-menu @yield('activeTypePhone')" href="{{ route('typePhone.index') }}"
-                    id="1">
-                    <i class="fas fa-phone-alt"></i>&nbspTipo de Telefone
-                </a>
-            </li> --}}
-            <li class="nav-item item-lateral-menu">
-                <a class="nav-link link-lateral-menu @yield('activeUser')" href="{{ route('collaborator.index') }}"
-                    id="1">
-                    <i class="fas fa-user-friends"></i>&nbspUsuarios
-                </a>
-            </li>
+            @if (Auth::user()->access == 'ADMINISTRADOR')
+                <li class="nav-item item-lateral-menu">
+                    <a class="nav-link link-lateral-menu @yield('activeStock')" href="{{ route('stock.index') }}">
+                        <i class="fas fa-toolbox"></i>&nbspEstoque
+                    </a>
+                </li>
+                <li class="nav-item item-lateral-menu">
+                    <a class="nav-link link-lateral-menu @yield('activeOffice')" href="{{ route('office.index') }}">
+                        <i class="fas fa-user-tie"></i>&nbspCargos
+                    </a>
+                </li>
+                <li class="nav-item item-lateral-menu">
+                    <a class="nav-link link-lateral-menu @yield('activeUser')" href="{{ route('collaborator.index') }}"
+                        id="1">
+                        <i class="fas fa-user-friends"></i>&nbspUsuarios
+                    </a>
+                </li>
+            @endif
             <li class="nav-item item-lateral-menu">
                 <a class="nav-link link-lateral-menu @yield('activeCli')" href="{{ route('client.index') }}">
                     <i class="fas fa-users"></i>&nbspClientes
@@ -113,26 +119,31 @@
                     <i class="far fa-calendar-alt"></i>&nbspAgenda
                 </a>
             </li>
-            <li class="nav-item item-lateral-menu dropdown">
-                <a class="nav-link link-lateral-menu dropdown-toggle @yield('activeRep')" role="button" id="dropdownMenuLink"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="far fa-file-alt"></i>&nbspRelatórios
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{{ route('reports.collaborator') }}">
-                        <i class="far fa-chart-bar"></i>&nbspColaboradores
+            @if (Auth::user()->access == 'ADMINISTRADOR')
+                <li class="nav-item item-lateral-menu dropdown">
+                    <a class="nav-link link-lateral-menu dropdown-toggle @yield('activeRep')" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-file-alt"></i>&nbspRelatórios
                     </a>
-                    <a class="dropdown-item" href="{{ route('reports.client') }}">
-                        <i class="far fa-chart-bar"></i>&nbspClientes
-                    </a>
-                    <a class="dropdown-item" href="{{ route('reports.attendance') }}">
-                        <i class="far fa-chart-bar"></i>&nbspAtendimentos
-                    </a>
-                    <a class="dropdown-item" href="{{ route('reports.tatuador') }}">
-                        <i class="far fa-chart-bar"></i>&nbspTatuadores
-                    </a>
-                </div>
-            </li>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('reports.collaborator') }}">
+                            <i class="far fa-chart-bar"></i>&nbspColaboradores
+                        </a>
+                        <a class="dropdown-item" href="{{ route('reports.client') }}">
+                            <i class="far fa-chart-bar"></i>&nbspClientes
+                        </a>
+                        <a class="dropdown-item" href="{{ route('reports.attendance') }}">
+                            <i class="far fa-chart-bar"></i>&nbspAtendimentos
+                        </a>
+                        <a class="dropdown-item" href="{{ route('reports.tatuador') }}">
+                            <i class="far fa-chart-bar"></i>&nbspTatuadores
+                        </a>
+                        <a class="dropdown-item" href="{{ route('reports.stock') }}">
+                            <i class="far fa-chart-bar"></i>&nbspEstoque
+                        </a>
+                    </div>
+                </li>
+            @endif
         </ul>
     </div>
     @endguest
